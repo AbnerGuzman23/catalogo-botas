@@ -5,7 +5,7 @@ import SizeFilter from '@/components/SizeFilter'
 
 function SizeFilterWrapper({ sizes, currentSize }) {
   return (
-    <Suspense fallback={<div className="bg-white p-6 rounded-lg shadow-sm h-24 animate-pulse"></div>}>
+    <Suspense fallback={<div className="bg-amber-50 border border-amber-200 p-6 rounded-lg h-24 animate-pulse"></div>}>
       <SizeFilter sizes={sizes} currentSize={currentSize} />
     </Suspense>
   )
@@ -14,26 +14,89 @@ function SizeFilterWrapper({ sizes, currentSize }) {
 export default async function Home(props) {
   const searchParams = await props.searchParams
   const sizeFilter = searchParams?.size || null
-  const products = await getProducts(sizeFilter)
+  const categoryFilter = searchParams?.category || null
+  const products = await getProducts(sizeFilter, categoryFilter)
   const availableSizes = await getAvailableSizes()
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">
-            🥾 Catálogo de Botas
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Encuentra las mejores botas para tu estilo
-          </p>
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-stone-100">
+      {/* Hero Header */}
+      <header className="relative bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            {/* Logo/Brand */}
+            <div className="flex justify-center items-center mb-6">
+              <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                <span className="text-3xl">🤠</span>
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-wider">
+                RR
+                <span className="block text-3xl md:text-4xl font-normal tracking-widest text-amber-200">BOOTS</span>
+              </h1>
+            </div>
+            
+            <p className="text-xl md:text-2xl text-amber-100 font-light mb-2">
+              Artículos Western de Calidad Premium
+            </p>
+            <p className="text-lg text-amber-200 font-light">
+              Botas • Cinturones • Ropa • Accesorios Vaqueros
+            </p>
+            
+            {/* Decorative element */}
+            <div className="mt-8 flex justify-center">
+              <div className="w-24 h-0.5 bg-amber-300 opacity-60"></div>
+              <div className="w-2 h-2 bg-amber-300 rounded-full mx-4 mt-[-3px]"></div>
+              <div className="w-24 h-0.5 bg-amber-300 opacity-60"></div>
+            </div>
+          </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Subtitle Section */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-4 tracking-wide">
+            NUEVOS PRODUCTOS
+          </h2>
+          <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-8">
+            Descubre nuestra exclusiva colección de artículos western: botas, cinturones, 
+            ropa y accesorios vaqueros diseñados para aquellos que valoran la tradición y el estilo auténtico.
+          </p>
+          
+          {/* Filtros de categoría */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <a href="/?category=" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+              !searchParams?.category ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
+            }`}>
+              TODOS
+            </a>
+            <a href="/?category=botas" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+              searchParams?.category === 'botas' ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
+            }`}>
+              BOTAS
+            </a>
+            <a href="/?category=cinturones" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+              searchParams?.category === 'cinturones' ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
+            }`}>
+              CINTURONES
+            </a>
+            <a href="/?category=ropa" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+              searchParams?.category === 'ropa' ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
+            }`}>
+              ROPA
+            </a>
+            <a href="/?category=accesorios" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+              searchParams?.category === 'accesorios' ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
+            }`}>
+              ACCESORIOS
+            </a>
+          </div>
+        </div>
+
         {/* Filtro por talla */}
-        <div className="mb-8">
+        <div className="mb-12">
           <SizeFilterWrapper sizes={availableSizes} currentSize={sizeFilter} />
         </div>
 
@@ -41,14 +104,15 @@ export default async function Home(props) {
         <ProductGrid products={products} />
 
         {products.length === 0 && (
-          <div className="text-center py-16">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <div className="text-center py-20 bg-white rounded-lg shadow-lg border border-amber-200">
+            <div className="text-6xl mb-4">🤠</div>
+            <h3 className="text-xl font-semibold text-amber-900 mb-2">
               No hay productos disponibles
             </h3>
-            <p className="text-gray-500">
+            <p className="text-stone-600">
               {sizeFilter
                 ? `No se encontraron productos para la talla "${sizeFilter}"`
-                : 'Vuelve pronto para ver nuestros productos'
+                : 'Vuelve pronto para descubrir nuestros nuevos artículos western'
               }
             </p>
           </div>
@@ -56,11 +120,46 @@ export default async function Home(props) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <p className="text-center text-gray-500">
-            © 2025 Catálogo de Botas. Todos los derechos reservados.
-          </p>
+      <footer className="bg-amber-900 text-white mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            {/* Brand Column */}
+            <div>
+              <h3 className="text-2xl font-bold mb-4 tracking-wide">RR BOOTS</h3>
+              <p className="text-amber-200 text-sm leading-relaxed">
+                Más de 25 años especializados en artículos western de alta calidad. 
+                Botas, cinturones, ropa y accesorios vaqueros con tradición y estilo auténtico.
+              </p>
+            </div>
+            
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Productos</h4>
+              <ul className="space-y-2 text-amber-200 text-sm">
+                <li>• Botas Vaqueras</li>
+                <li>• Cinturones de Cuero</li>
+                <li>• Ropa Western</li>
+                <li>• Accesorios Vaqueros</li>
+              </ul>
+            </div>
+            
+            {/* Contact Info */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Servicios</h4>
+              <div className="text-amber-200 text-sm space-y-2">
+                <p>🤠 Artículos western auténticos</p>
+                <p>📞 Asesoría especializada</p>
+                <p>🚚 Envíos seguros</p>
+                <p>✨ Garantía de calidad</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-amber-800 pt-8 text-center">
+            <p className="text-amber-300 text-sm">
+              © 2025 RR Boots. Todos los derechos reservados. | Hecho con ❤️ para los amantes del estilo occidental
+            </p>
+          </div>
         </div>
       </footer>
     </div>

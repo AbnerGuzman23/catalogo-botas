@@ -21,29 +21,32 @@ export default function SizeFilter({ sizes, currentSize }) {
   }
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Filtrar por talla</h3>
+    <div className="bg-white border border-amber-200 p-8 rounded-lg shadow-lg">
+      <div className="text-center mb-6">
+        <h3 className="text-2xl font-bold text-amber-900 mb-2 tracking-wide">FILTRAR POR TALLA</h3>
+        <div className="w-16 h-0.5 bg-amber-600 mx-auto"></div>
+      </div>
       
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap justify-center gap-3">
         <button
           onClick={() => handleSizeChange('all')}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors
+          className={`px-6 py-3 rounded-lg text-sm font-bold tracking-wider transition-all duration-300 border-2 transform hover:scale-105
             ${!currentSize 
-              ? 'bg-gray-900 text-white' 
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-amber-800 text-white border-amber-800 shadow-lg' 
+              : 'bg-white text-amber-800 border-amber-300 hover:border-amber-500 hover:bg-amber-50'
             }`}
         >
-          Todas
+          TODAS
         </button>
         
         {sizes.map((size) => (
           <button
             key={size}
             onClick={() => handleSizeChange(size)}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors
+            className={`px-6 py-3 rounded-lg text-sm font-bold tracking-wider transition-all duration-300 border-2 transform hover:scale-105
               ${currentSize === size 
-                ? 'bg-gray-900 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-amber-800 text-white border-amber-800 shadow-lg' 
+                : 'bg-white text-amber-800 border-amber-300 hover:border-amber-500 hover:bg-amber-50'
               }`}
           >
             {size}
@@ -52,9 +55,11 @@ export default function SizeFilter({ sizes, currentSize }) {
       </div>
       
       {currentSize && (
-        <p className="text-sm text-gray-600 mt-3">
-          Mostrando productos para la talla: <span className="font-medium">{currentSize}</span>
-        </p>
+        <div className="text-center mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
+          <p className="text-amber-900 font-medium">
+            Mostrando productos para la talla: <span className="font-bold text-amber-800 text-lg">{currentSize}</span>
+          </p>
+        </div>
       )}
     </div>
   )
