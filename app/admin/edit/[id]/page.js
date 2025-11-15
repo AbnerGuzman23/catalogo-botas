@@ -5,7 +5,7 @@ import AdminNavbar from '@/components/admin/AdminNavbar'
 import ProductForm from '@/components/admin/ProductForm'
 
 export default async function EditProduct(props) {
-  if (!isAdminAuthenticated()) {
+  if (!(await isAdminAuthenticated())) {
     redirect('/admin/login')
   }
 

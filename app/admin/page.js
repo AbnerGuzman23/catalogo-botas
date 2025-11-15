@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export default async function AdminDashboard() {
   // Verificar autenticación del lado del servidor
-  if (!isAdminAuthenticated()) {
+  if (!(await isAdminAuthenticated())) {
     redirect('/admin/login')
   }
 
