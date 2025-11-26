@@ -10,14 +10,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
+model Category {
   id          Int      @id @default(autoincrement())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  icon        String?
+  hasSizes    Boolean  @default(false)
+  hasColors   Boolean  @default(false)
+  hasMaterials Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id          Int            @id @default(autoincrement())
   name        String
   description String
   price       Float
-  size        String
-  category    String   @default("botas")
+  category    String         @default("botas") // Mantener temporalmente
+  categoryId  Int?           // Hacer opcional temporalmente
+  categoryRel Category?      @relation(fields: [categoryId], references: [id])
   imageUrl    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  inventory   ProductSize[]  // Relación con inventario por talla
+  saleItems   SaleItem[]     // Relación con elementos de venta
+  
+  // Deprecated field - mantener para compatibilidad
+  size        String?
+}
+
+model ProductSize {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  size      String
+  quantity  Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@unique([productId, size]) // Un producto no puede tener la misma talla duplicada
+}
+
+model Sale {
+  id          Int        @id @default(autoincrement())
+  total       Float
+  customerName String?
+  customerEmail String?
+  customerPhone String?
+  status      String     @default("completed") // completed, pending, cancelled
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  items       SaleItem[]
+}
+
+model SaleItem {
+  id        Int     @id @default(autoincrement())
+  saleId    Int
+  productId Int
+  size      String
+  quantity  Int
+  price     Float   // Precio al momento de la venta
+  sale      Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
 }

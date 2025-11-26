@@ -1,7 +1,10 @@
 import { Suspense } from 'react'
 import { getProducts, getAvailableSizes } from '@/lib/actions'
+import { getCategories } from '@/lib/category-actions'
 import ProductGrid from '@/components/ProductGrid'
 import SizeFilter from '@/components/SizeFilter'
+import ThemeToggleSimple from '@/components/admin/ThemeToggleSimple'
+import Link from 'next/link'
 
 function SizeFilterWrapper({ sizes, currentSize }) {
   return (
@@ -11,18 +14,37 @@ function SizeFilterWrapper({ sizes, currentSize }) {
   )
 }
 
+// Función para generar metadata dinámica
+export async function generateMetadata(props) {
+  // Mantener título fijo para evitar confusión
+  return {
+    title: 'RR BOOTS',
+    description: 'Catálogo de artículos western'
+  }
+}
+
 export default async function Home(props) {
   const searchParams = await props.searchParams
   const sizeFilter = searchParams?.size || null
   const categoryFilter = searchParams?.category || null
-  const products = await getProducts(sizeFilter, categoryFilter)
+  
+  // Limpiar categoryFilter si está vacío
+  const cleanCategoryFilter = categoryFilter && categoryFilter.trim() !== '' ? categoryFilter : null
+  
+  const products = await getProducts(sizeFilter, cleanCategoryFilter)
   const availableSizes = await getAvailableSizes()
+  const categories = await getCategories()
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-stone-100">
+    <div className="min-h-screen gradient-theme-primary transition-colors duration-300">
       {/* Hero Header */}
-      <header className="relative bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 text-white overflow-hidden">
+      <header className="relative gradient-theme-header text-white overflow-hidden">
         <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+        
+        {/* Botón del tema en la esquina superior derecha */}
+        <div className="absolute top-6 right-6 z-10">
+          <ThemeToggleSimple />
+        </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
@@ -41,7 +63,7 @@ export default async function Home(props) {
               Artículos Western de Calidad Premium
             </p>
             <p className="text-lg text-amber-200 font-light">
-              Botas • Cinturones • Ropa • Accesorios Vaqueros
+              {categories.map(cat => cat.name).join(' • ')}
             </p>
             
             {/* Decorative element */}
@@ -55,43 +77,26 @@ export default async function Home(props) {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Subtitle Section */}
+        {/* Filtros de categoría */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-4 tracking-wide">
-            NUEVOS PRODUCTOS
-          </h2>
-          <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-8">
-            Descubre nuestra exclusiva colección de artículos western: botas, cinturones, 
-            ropa y accesorios vaqueros diseñados para aquellos que valoran la tradición y el estilo auténtico.
-          </p>
-          
-          {/* Filtros de categoría */}
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <a href="/?category=" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-              !searchParams?.category ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
+            <Link href="/" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+              !cleanCategoryFilter ? 'bg-theme-header text-white shadow-lg' : 'bg-theme-card text-theme-primary border-2 border-theme hover:bg-theme-secondary'
             }`}>
               TODOS
-            </a>
-            <a href="/?category=botas" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-              searchParams?.category === 'botas' ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
-            }`}>
-              BOTAS
-            </a>
-            <a href="/?category=cinturones" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-              searchParams?.category === 'cinturones' ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
-            }`}>
-              CINTURONES
-            </a>
-            <a href="/?category=ropa" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-              searchParams?.category === 'ropa' ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
-            }`}>
-              ROPA
-            </a>
-            <a href="/?category=accesorios" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-              searchParams?.category === 'accesorios' ? 'bg-amber-900 text-white shadow-lg' : 'bg-white text-amber-900 border-2 border-amber-900 hover:bg-amber-50'
-            }`}>
-              ACCESORIOS
-            </a>
+            </Link>
+            {categories.map((category) => (
+              <Link 
+                key={category.id}
+                href={`?category=${category.slug}`} 
+                className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 ${
+                  cleanCategoryFilter === category.slug ? 'bg-theme-header text-white shadow-lg' : 'bg-theme-card text-theme-primary border-2 border-theme hover:bg-theme-secondary'
+                }`}
+              >
+                {category.icon && <span>{category.icon}</span>}
+                {category.name.toUpperCase()}
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -104,12 +109,12 @@ export default async function Home(props) {
         <ProductGrid products={products} />
 
         {products.length === 0 && (
-          <div className="text-center py-20 bg-white rounded-lg shadow-lg border border-amber-200">
+          <div className="text-center py-20 bg-white dark:bg-slate-700 rounded-lg shadow-lg border border-amber-200 dark:border-slate-600">
             <div className="text-6xl mb-4">🤠</div>
-            <h3 className="text-xl font-semibold text-amber-900 mb-2">
+            <h3 className="text-xl font-semibold text-amber-900 dark:text-amber-200 mb-2">
               No hay productos disponibles
             </h3>
-            <p className="text-stone-600">
+            <p className="text-stone-600 dark:text-slate-300">
               {sizeFilter
                 ? `No se encontraron productos para la talla "${sizeFilter}"`
                 : 'Vuelve pronto para descubrir nuestros nuevos artículos western'
@@ -120,7 +125,7 @@ export default async function Home(props) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-amber-900 text-white mt-20">
+      <footer className="bg-amber-900 dark:bg-slate-800 text-white mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Brand Column */}
@@ -136,7 +141,7 @@ export default async function Home(props) {
             <div>
               <h4 className="text-lg font-semibold mb-4">Productos</h4>
               <ul className="space-y-2 text-amber-200 text-sm">
-                <li>• Botas Vaqueras</li>
+                <li>• Zapatos Vaqueros</li>
                 <li>• Cinturones de Cuero</li>
                 <li>• Ropa Western</li>
                 <li>• Accesorios Vaqueros</li>
