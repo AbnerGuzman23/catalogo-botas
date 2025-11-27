@@ -108,31 +108,43 @@ async function main() {
   ]
 
   for (const product of products) {
-    // Usar upsert para evitar duplicados
-    const createdProduct = await prisma.product.upsert({
-      where: { name: product.name },
-      create: product,
-      update: product
+    // Verificar si el producto ya existe antes de crear
+    const existingProduct = await prisma.product.findFirst({
+      where: { name: product.name }
     })
-    console.log(`✅ Created/Updated product: ${product.name}`)
 
-    // Eliminar inventario existente antes de crear nuevo
-    await prisma.productSize.deleteMany({
+    let createdProduct
+    if (existingProduct) {
+      console.log(`⚠️ Product already exists: ${product.name} - Skipping`)
+      createdProduct = existingProduct
+    } else {
+      createdProduct = await prisma.product.create({
+        data: product
+      })
+      console.log(`✅ Created product: ${product.name}`)
+    }
+
+    // Verificar si ya tiene inventario antes de crear
+    const existingInventory = await prisma.productSize.count({
       where: { productId: createdProduct.id }
     })
 
-    // Crear inventario de tallas para cada producto
-    const sizes = ['38', '39', '40', '41', '42', '43', '44']
-    const sizeInventory = sizes.map(size => ({
-      productId: createdProduct.id,
-      size,
-      quantity: Math.floor(Math.random() * 10) + 1 // 1-10 items por talla
-    }))
+    if (existingInventory === 0) {
+      // Crear inventario de tallas para cada producto
+      const sizes = ['38', '39', '40', '41', '42', '43', '44']
+      const sizeInventory = sizes.map(size => ({
+        productId: createdProduct.id,
+        size,
+        quantity: Math.floor(Math.random() * 10) + 1 // 1-10 items por talla
+      }))
 
-    await prisma.productSize.createMany({
-      data: sizeInventory
-    })
-    console.log(`📦 Created inventory for ${product.name}`)
+      await prisma.productSize.createMany({
+        data: sizeInventory
+      })
+      console.log(`📦 Created inventory for ${product.name}`)
+    } else {
+      console.log(`📦 Inventory already exists for ${product.name}`)
+    }
   }
 
   console.log('🎉 Seeding completed successfully!')
