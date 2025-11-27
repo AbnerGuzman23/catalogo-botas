@@ -17,6 +17,13 @@ export default function AdminLogin() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          
+          <div className="mb-4 p-3 rounded-md bg-blue-50 border border-blue-200">
+            <p className="text-sm text-blue-600">
+              🔧 <strong>DEBUG MODE:</strong> Revisa la consola del navegador (F12) para logs detallados del login
+            </p>
+          </div>
+          
           <form action={loginAction} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
@@ -45,6 +52,7 @@ export default function AdminLogin() {
                   name="password"
                   type="password"
                   required
+                  defaultValue="admin123"
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
                   placeholder="Contraseña"
                 />
@@ -63,7 +71,7 @@ export default function AdminLogin() {
 
           <div className="mt-6 bg-amber-50 p-4 rounded-md border border-amber-200">
             <p className="text-xs text-amber-800">
-              <strong>💡 Para probar:</strong><br />
+              <strong>💡 Credenciales de prueba:</strong><br />
               Usuario: <code className="bg-amber-100 px-1 rounded">admin</code><br />
               Contraseña: <code className="bg-amber-100 px-1 rounded">admin123</code>
             </p>
