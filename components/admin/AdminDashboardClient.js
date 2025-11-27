@@ -8,13 +8,6 @@ import AdminFilters from '@/components/admin/AdminFilters'
 import Link from 'next/link'
 
 export default function AdminDashboardClient({ initialProducts, initialSizes }) {
-  console.log('🔍 AdminDashboardClient received:')
-  console.log(`  initialProducts: ${initialProducts.length} items`)
-  console.log(`  initialSizes: ${initialSizes.length} items`)
-  if (initialProducts.length > 0) {
-    console.log(`  First product: ${JSON.stringify(initialProducts[0], null, 2)}`)
-  }
-
   const [products, setProducts] = useState(initialProducts)
   const [loading, setLoading] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
