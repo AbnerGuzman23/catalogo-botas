@@ -3,9 +3,9 @@ import DeleteProductButton from './DeleteProductButton'
 
 export default function AdminProductList({ products }) {
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-ES', {
+    return new Intl.NumberFormat('es-GT', {
       style: 'currency',
-      currency: 'EUR'
+      currency: 'GTQ'
     }).format(price)
   }
 
@@ -88,9 +88,33 @@ export default function AdminProductList({ products }) {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">
-                    {product.size}
-                  </span>
+                  <div className="flex flex-wrap gap-1">
+                    {product.inventory && product.inventory.length > 0 ? (
+                      product.inventory
+                        .filter(inv => inv.quantity > 0)
+                        .sort((a, b) => {
+                          const numA = parseFloat(a.size)
+                          const numB = parseFloat(b.size)
+                          if (!isNaN(numA) && !isNaN(numB)) {
+                            return numA - numB
+                          }
+                          return a.size.localeCompare(b.size)
+                        })
+                        .map((inv) => (
+                          <span 
+                            key={inv.size} 
+                            className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full"
+                            title={`Stock: ${inv.quantity}`}
+                          >
+                            {inv.size}
+                          </span>
+                        ))
+                    ) : (
+                      <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">
+                        Sin tallas
+                      </span>
+                    )}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {new Date(product.createdAt).toLocaleDateString('es-ES')}

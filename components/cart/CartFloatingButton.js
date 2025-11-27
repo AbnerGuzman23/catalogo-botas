@@ -15,10 +15,10 @@ export default function CartFloatingButton() {
       title={`Carrito (${totalItems} ${totalItems === 1 ? 'artículo' : 'artículos'})`}
     >
       <div className="relative">
-        <span className="text-2xl">🛒</span>
+        <span className="text-lg sm:text-xl lg:text-2xl">🛍️</span>
         {totalItems > 0 && (
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-            {totalItems > 9 ? '9+' : totalItems}
+          <span className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-red-500 text-white text-xs sm:text-sm w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center font-bold animate-bounce">
+            {totalItems > 99 ? '99+' : totalItems}
           </span>
         )}
       </div>

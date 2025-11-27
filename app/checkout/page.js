@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCart } from '@/components/cart/CartContext'
 import { processSale } from '@/lib/sales-actions'
+import { getSiteConfig } from '@/lib/actions'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -12,17 +13,67 @@ export default function CheckoutPage() {
   const [orderComplete, setOrderComplete] = useState(false)
   const [saleId, setSaleId] = useState(null)
   const [error, setError] = useState('')
+  const [siteConfig, setSiteConfig] = useState(null)
   const [customerData, setCustomerData] = useState({
     name: '',
     email: '',
     phone: ''
   })
 
+  // Cargar configuración del sitio
+  useEffect(() => {
+    const loadSiteConfig = async () => {
+      const config = await getSiteConfig()
+      setSiteConfig(config)
+    }
+    loadSiteConfig()
+  }, [])
+
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-ES', {
+    return new Intl.NumberFormat('es-GT', {
       style: 'currency',
-      currency: 'EUR'
+      currency: 'GTQ'
     }).format(price)
+  }
+
+  const generateWhatsAppMessage = (customerData, items, total, saleId) => {
+    let message = `🤠 *NUEVO PEDIDO - RR BOOTS* 🥾\n\n`
+    
+    if (customerData.name || customerData.phone || customerData.email) {
+      message += `👤 *DATOS DEL CLIENTE:*\n`
+      if (customerData.name) message += `• Nombre: ${customerData.name}\n`
+      if (customerData.phone) message += `• Teléfono: ${customerData.phone}\n`
+      if (customerData.email) message += `• Email: ${customerData.email}\n`
+      message += `\n`
+    }
+    
+    message += `📦 *PRODUCTOS SOLICITADOS:*\n`
+    
+    items.forEach((item, index) => {
+      message += `\n${index + 1}. *${item.productName}*\n`
+      message += `   • Precio: ${formatPrice(item.price)}\n`
+      message += `   • Talla: ${item.size}\n`
+      message += `   • Cantidad: ${item.quantity}\n`
+      message += `   • Subtotal: ${formatPrice(item.price * item.quantity)}\n`
+    })
+    
+    message += `\n💰 *TOTAL DEL PEDIDO: ${formatPrice(total)}*\n`
+    message += `\n📋 *Número de pedido:* #${saleId}\n`
+    message += `\n💳 *Métodos de pago disponibles:*\n`
+    message += `• Efectivo\n`
+    message += `• Transferencia bancaria\n`
+    message += `• Tarjeta de crédito/débito\n`
+    message += `\n🕐 Fecha del pedido: ${new Date().toLocaleString('es-ES')}\n`
+    message += `\n¡Gracias por elegir RR BOOTS! 🤠`
+    
+    return encodeURIComponent(message)
+  }
+
+  const sendWhatsAppMessage = (customerData, items, total, saleId) => {
+    const whatsappNumber = siteConfig?.whatsappNumber || '50212345678'
+    const message = generateWhatsAppMessage(customerData, items, total, saleId)
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`
+    window.open(whatsappURL, '_blank')
   }
 
   const handleSubmit = async (e) => {
@@ -51,6 +102,10 @@ export default function CheckoutPage() {
       if (result.success) {
         setSaleId(result.saleId)
         setOrderComplete(true)
+        
+        // Enviar mensaje de WhatsApp
+        sendWhatsAppMessage(customerData, items, getTotalPrice(), result.saleId)
+        
         clearCart()
       } else {
         setError(result.error)
@@ -100,9 +155,15 @@ export default function CheckoutPage() {
             El inventario ha sido actualizado automáticamente.
           </p>
           <div className="space-y-3">
+            <button
+              onClick={() => sendWhatsAppMessage(customerData, items, getTotalPrice(), saleId)}
+              className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors mb-3"
+            >
+              📱 Enviar por WhatsApp
+            </button>
             <Link
               href="/"
-              className="block bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+              className="block bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-lg transition-colors text-center"
             >
               Seguir Comprando
             </Link>

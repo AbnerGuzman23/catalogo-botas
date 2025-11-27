@@ -1,10 +1,10 @@
 import { Suspense } from 'react'
-import { getProducts, getAvailableSizes } from '@/lib/actions'
+import { getProducts, getAvailableSizes, getSiteConfig } from '@/lib/actions'
 import { getCategories } from '@/lib/category-actions'
 import ProductGrid from '@/components/ProductGrid'
 import SizeFilter from '@/components/SizeFilter'
-import ThemeToggleSimple from '@/components/admin/ThemeToggleSimple'
 import Link from 'next/link'
+import Image from 'next/image'
 
 function SizeFilterWrapper({ sizes, currentSize }) {
   return (
@@ -34,33 +34,36 @@ export default async function Home(props) {
   const products = await getProducts(sizeFilter, cleanCategoryFilter)
   const availableSizes = await getAvailableSizes()
   const categories = await getCategories()
+  const siteConfig = await getSiteConfig()
 
   return (
     <div className="min-h-screen gradient-theme-primary transition-colors duration-300">
       {/* Hero Header */}
-      <header className="relative gradient-theme-header text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
-        
-        {/* Botón del tema en la esquina superior derecha */}
-        <div className="absolute top-6 right-6 z-10">
-          <ThemeToggleSimple />
-        </div>
-        
+      <header className="bg-amber-800 text-amber-50 gradient-western-header">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             {/* Logo/Brand */}
             <div className="flex justify-center items-center mb-6">
               <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                <span className="text-3xl">🤠</span>
+                {siteConfig.logoUrl ? (
+                  <Image
+                    src={siteConfig.logoUrl}
+                    alt="Logo"
+                    width={48}
+                    height={48}
+                    className="object-contain"
+                  />
+                ) : (
+                  <span className="text-3xl">🤠</span>
+                )}
               </div>
               <h1 className="text-5xl md:text-6xl font-bold tracking-wider">
-                RR
-                <span className="block text-3xl md:text-4xl font-normal tracking-widest text-amber-200">BOOTS</span>
+                {siteConfig.siteName}
               </h1>
             </div>
             
             <p className="text-xl md:text-2xl text-amber-100 font-light mb-2">
-              Artículos Western de Calidad Premium
+              {siteConfig.siteDescription}
             </p>
             <p className="text-lg text-amber-200 font-light">
               {categories.map(cat => cat.name).join(' • ')}
@@ -89,7 +92,7 @@ export default async function Home(props) {
               <Link 
                 key={category.id}
                 href={`?category=${category.slug}`} 
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 ${
+                className={`px-3 sm:px-4 lg:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-500 ease-in-out flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-base hover:scale-105 transform ${
                   cleanCategoryFilter === category.slug ? 'bg-theme-header text-white shadow-lg' : 'bg-theme-card text-theme-primary border-2 border-theme hover:bg-theme-secondary'
                 }`}
               >
@@ -130,39 +133,36 @@ export default async function Home(props) {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Brand Column */}
             <div>
-              <h3 className="text-2xl font-bold mb-4 tracking-wide">RR BOOTS</h3>
+              <h3 className="text-2xl font-bold mb-4 tracking-wide">{siteConfig.siteName}</h3>
               <p className="text-amber-200 text-sm leading-relaxed">
-                Más de 25 años especializados en artículos western de alta calidad. 
-                Botas, cinturones, ropa y accesorios vaqueros con tradición y estilo auténtico.
+                {siteConfig.footerAbout}
               </p>
             </div>
             
             {/* Quick Links */}
             <div>
               <h4 className="text-lg font-semibold mb-4">Productos</h4>
-              <ul className="space-y-2 text-amber-200 text-sm">
-                <li>• Zapatos Vaqueros</li>
-                <li>• Cinturones de Cuero</li>
-                <li>• Ropa Western</li>
-                <li>• Accesorios Vaqueros</li>
-              </ul>
+              <div className="space-y-2 text-amber-200 text-sm">
+                {siteConfig.footerProducts.split('\n').map((item, index) => (
+                  <div key={index}>{item}</div>
+                ))}
+              </div>
             </div>
             
             {/* Contact Info */}
             <div>
               <h4 className="text-lg font-semibold mb-4">Servicios</h4>
               <div className="text-amber-200 text-sm space-y-2">
-                <p>🤠 Artículos western auténticos</p>
-                <p>📞 Asesoría especializada</p>
-                <p>🚚 Envíos seguros</p>
-                <p>✨ Garantía de calidad</p>
+                {siteConfig.footerServices.split('\n').map((service, index) => (
+                  <p key={index}>{service}</p>
+                ))}
               </div>
             </div>
           </div>
           
-          <div className="border-t border-amber-800 pt-8 text-center">
-            <p className="text-amber-300 text-sm">
-              © 2025 RR Boots. Todos los derechos reservados. | Hecho con ❤️ para los amantes del estilo occidental
+          <div className="border-t border-amber-800 pt-6 sm:pt-8 text-center">
+            <p className="text-amber-300 text-xs sm:text-sm transition-all duration-300 hover:text-amber-200">
+              © 2025 {siteConfig.siteName}. Todos los derechos reservados. | Hecho con ❤️ para los amantes de lo vaquero
             </p>
           </div>
         </div>

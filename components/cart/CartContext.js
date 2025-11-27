@@ -48,6 +48,18 @@ export function CartProvider({ children }) {
     })
   }
 
+  // Función simplificada para agregar al carrito sin talla específica
+  const addToCart = (product, quantity = 1) => {
+    // Buscar la primera talla disponible del producto
+    if (product.sizes && product.sizes.length > 0) {
+      const firstAvailableSize = product.sizes.find(size => size.quantity > 0)?.size || product.sizes[0]?.size
+      addItem(product, firstAvailableSize, quantity)
+    } else {
+      // Si no hay sistema de tallas, usar una talla por defecto
+      addItem(product, 'Talla Única', quantity)
+    }
+  }
+
   const removeItem = (productId, size) => {
     setItems(currentItems =>
       currentItems.filter(
@@ -83,6 +95,10 @@ export function CartProvider({ children }) {
     return items.reduce((total, item) => total + (item.price * item.quantity), 0)
   }
 
+  // Alias para compatibilidad
+  const itemCount = getTotalItems()
+  const cartTotal = getTotalPrice()
+
   const toggleCart = () => {
     setIsOpen(!isOpen)
   }
@@ -90,11 +106,14 @@ export function CartProvider({ children }) {
   const value = {
     items,
     addItem,
+    addToCart,
     removeItem,
     updateQuantity,
     clearCart,
     getTotalItems,
     getTotalPrice,
+    itemCount,
+    cartTotal,
     isOpen,
     toggleCart,
     setIsOpen

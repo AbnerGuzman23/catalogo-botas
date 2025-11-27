@@ -74,3 +74,17 @@ model SaleItem {
   sale      Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
   product   Product @relation(fields: [productId], references: [id])
 }
+
+model SiteConfig {
+  id          Int      @id @default(autoincrement())
+  siteName    String   @default("RR BOOTS")
+  siteDescription String @default("Artículos Western de Calidad Premium")
+  logoUrl     String?
+  footerAbout String   @default("Más de 25 años especializados en artículos western de alta calidad. Botas, cinturones, ropa y accesorios vaqueros con tradición y estilo auténtico.")
+  footerProducts String @default("• Zapatos Vaqueros\n• Cinturones de Cuero\n• Ropa Western\n• Accesorios Vaqueros")
+  footerServices String @default("🤠 Artículos western auténticos\n📞 Asesoría especializada\n🚚 Envíos seguros\n✨ Garantía de calidad")
+  adminPassword String @default("admin123")
+  whatsappNumber String @default("50212345678")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

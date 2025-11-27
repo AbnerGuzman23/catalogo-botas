@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Aplicar tema inmediatamente antes de cualquier otra cosa */
+html {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
 /* Variables CSS para modo claro */
 :root {
   --bg-primary: 254 243 199; /* amber-50 */

@@ -57,7 +57,7 @@ export default function ProductForm({ action, product = null, categories = [] })
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Precio (€)
+            Precio (Q)
           </label>
           <input
             type="number"

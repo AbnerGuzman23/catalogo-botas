@@ -16,9 +16,9 @@ export default function CartSidebar() {
   } = useCart()
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-ES', {
+    return new Intl.NumberFormat('es-GT', {
       style: 'currency',
-      currency: 'EUR'
+      currency: 'GTQ'
     }).format(price)
   }
 
@@ -28,22 +28,22 @@ export default function CartSidebar() {
     <>
       {/* Overlay */}
       <div 
-        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+        className="fixed inset-0 bg-transparent z-40"
         onClick={toggleCart}
       />
       
       {/* Sidebar */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-gray-800 shadow-xl z-50 transform transition-transform duration-300 overflow-hidden flex flex-col">
+      <div className="fixed right-0 top-0 h-full w-full max-w-xs sm:max-w-md bg-white dark:bg-gray-800 shadow-2xl z-50 transform transition-all duration-500 ease-in-out overflow-hidden flex flex-col animate-slide-in">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-amber-50 to-amber-100 dark:from-gray-700 dark:to-gray-800">
+          <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
             Carrito ({getTotalItems()})
           </h2>
           <button
             onClick={toggleCart}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+            className="p-1 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all duration-300 hover:rotate-90 transform"
           >
-            <span className="text-2xl">&times;</span>
+            <span className="text-xl sm:text-2xl">&times;</span>
           </button>
         </div>
 
@@ -128,7 +128,7 @@ export default function CartSidebar() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t border-gray-200 dark:border-gray-700 p-4 space-y-4">
+          <div className="border-t border-gray-200 dark:border-gray-700 p-4 space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-lg font-bold text-gray-900 dark:text-white">
                 Total:
@@ -143,7 +143,7 @@ export default function CartSidebar() {
               onClick={toggleCart}
               className="block w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors"
             >
-              Finalizar Compra
+              Finalizar Pedido
             </Link>
             
             <button

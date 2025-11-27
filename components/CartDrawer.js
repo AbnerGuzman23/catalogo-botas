@@ -1,6 +1,6 @@
 'use client'
 
-import { useCart } from '@/contexts/CartContext'
+import { useCart } from '@/components/cart/CartContext'
 import Image from 'next/image'
 import { useState } from 'react'
 import CheckoutForm from './CheckoutForm'
@@ -10,9 +10,9 @@ export default function CartDrawer({ isOpen, onClose }) {
   const [showCheckout, setShowCheckout] = useState(false)
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-ES', {
+    return new Intl.NumberFormat('es-GT', {
       style: 'currency',
-      currency: 'EUR'
+      currency: 'GTQ'
     }).format(price)
   }
 

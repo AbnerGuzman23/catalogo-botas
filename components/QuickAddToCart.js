@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useCart } from './cart/CartContext'
+import { useCart } from '@/components/cart/CartContext'
 import { validateCartItem } from '@/lib/sales-actions'
 
 export default function QuickAddToCart({ product }) {
@@ -52,8 +52,14 @@ export default function QuickAddToCart({ product }) {
 
   if (availableSizes.length === 0) {
     return (
-      <div className="bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 py-2 px-4 rounded-lg text-center text-sm">
-        Sin stock disponible
+      <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-lg p-4 text-center">
+        <div className="text-red-600 font-bold text-sm mb-1">
+          🚫 PRODUCTO AGOTADO
+        </div>
+        <div className="text-gray-600 text-xs">
+          Producto temporalmente sin disponibilidad.<br />
+          Volverá a estar disponible próximamente.
+        </div>
       </div>
     )
   }
@@ -62,13 +68,13 @@ export default function QuickAddToCart({ product }) {
     <div className="space-y-3">
       {/* Selector de talla */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
           Talla:
         </label>
         <select
           value={selectedSize}
           onChange={(e) => setSelectedSize(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
         >
           <option value="">Seleccionar talla</option>
           {availableSizes.map((item) => (
@@ -82,7 +88,7 @@ export default function QuickAddToCart({ product }) {
       {/* Selector de cantidad */}
       {selectedSize && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
             Cantidad:
           </label>
           <div className="flex items-center gap-2">
@@ -90,7 +96,7 @@ export default function QuickAddToCart({ product }) {
               type="button"
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               disabled={quantity <= 1}
-              className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-1 border border-gray-300 rounded text-gray-600 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               -
             </button>
@@ -100,7 +106,7 @@ export default function QuickAddToCart({ product }) {
               max={availableSizes.find(item => item.size === selectedSize)?.quantity || 1}
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-              className="w-16 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded text-center bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-16 px-2 py-1 border border-gray-300 rounded text-center bg-white text-gray-900"
             />
             <button
               type="button"
@@ -109,7 +115,7 @@ export default function QuickAddToCart({ product }) {
                 setQuantity(Math.min(maxStock, quantity + 1))
               }}
               disabled={quantity >= (availableSizes.find(item => item.size === selectedSize)?.quantity || 1)}
-              className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-1 border border-gray-300 rounded text-gray-600 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               +
             </button>
@@ -121,7 +127,7 @@ export default function QuickAddToCart({ product }) {
       <button
         onClick={handleAddToCart}
         disabled={!selectedSize || isLoading}
-        className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm"
+        className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-500 ease-in-out text-xs sm:text-sm transform hover:scale-105 hover:-translate-y-1 shadow-md hover:shadow-xl"
       >
         {isLoading ? 'Agregando...' : '🛒 Agregar al Carrito'}
       </button>

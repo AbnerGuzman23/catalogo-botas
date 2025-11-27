@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { useCart } from '@/contexts/CartContext'
-import { config } from '@/lib/config'
+import { useState, useEffect } from 'react'
+import { useCart } from '@/components/cart/CartContext'
+import { getSiteConfig } from '@/lib/actions'
 
 export default function CheckoutForm({ onBack, onClose }) {
   const { items, cartTotal, generateWhatsAppMessage, clearCart } = useCart()
+  const [siteConfig, setSiteConfig] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -15,13 +16,19 @@ export default function CheckoutForm({ onBack, onClose }) {
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Número de WhatsApp de la empresa desde la configuración
-  const BUSINESS_WHATSAPP = config.whatsappNumber
+  // Cargar configuración del sitio
+  useEffect(() => {
+    const loadSiteConfig = async () => {
+      const config = await getSiteConfig()
+      setSiteConfig(config)
+    }
+    loadSiteConfig()
+  }, [])
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-ES', {
+    return new Intl.NumberFormat('es-GT', {
       style: 'currency',
-      currency: 'EUR'
+      currency: 'GTQ'
     }).format(price)
   }
 
@@ -75,8 +82,9 @@ export default function CheckoutForm({ onBack, onClose }) {
       // Generar mensaje de WhatsApp
       const message = generateWhatsAppMessage(formData)
       
-      // Crear URL de WhatsApp
-      const whatsappURL = `https://wa.me/${BUSINESS_WHATSAPP.replace(/[^0-9]/g, '')}?text=${message}`
+      // Crear URL de WhatsApp usando la configuración del sitio
+      const businessWhatsApp = siteConfig?.whatsappNumber || '50212345678'
+      const whatsappURL = `https://wa.me/${businessWhatsApp.replace(/[^0-9]/g, '')}?text=${message}`
       
       // Abrir WhatsApp
       window.open(whatsappURL, '_blank')

@@ -19,8 +19,10 @@ export default function SizeInventoryManager({ sizes = [], onChange }) {
   }
 
   const updateQuantity = (size, quantity) => {
+    // Convertir a número y manejar valores vacíos
+    const numQuantity = quantity === '' ? 0 : parseInt(quantity) || 0
     const newInventory = sizeInventory.map(item => 
-      item.size === size ? { ...item, quantity: parseInt(quantity) || 0 } : item
+      item.size === size ? { ...item, quantity: numQuantity } : item
     )
     setSizeInventory(newInventory)
     onChange(newInventory)
@@ -94,8 +96,13 @@ export default function SizeInventoryManager({ sizes = [], onChange }) {
                 <input
                   type="number"
                   min="0"
-                  value={item.quantity}
+                  value={item.quantity === 0 ? '' : item.quantity}
                   onChange={(e) => updateQuantity(item.size, e.target.value)}
+                  onFocus={(e) => {
+                    if (e.target.value === '0') {
+                      e.target.value = ''
+                    }
+                  }}
                   className="w-full px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   placeholder="0"
                 />

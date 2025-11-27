@@ -1,0 +1,23 @@
+/* CSS para prevenir flash - se carga antes que todo */
+html {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+  transition: none !important;
+}
+
+body {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+  transition: none !important;
+}
+
+/* Solo aplicar tema claro si está específicamente configurado */
+html.light {
+  background-color: #fef3c7 !important;
+  color: #78350f !important;
+}
+
+html.light body {
+  background-color: #fef3c7 !important;
+  color: #78350f !important;
+}
