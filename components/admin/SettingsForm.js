@@ -30,7 +30,7 @@ export default function SettingsForm({ siteConfig }) {
       formDataObj.append('footerAbout', formData.footerAbout)
       formDataObj.append('footerProducts', formData.footerProducts)
       formDataObj.append('footerServices', formData.footerServices)
-      formDataObj.append('adminPassword', formData.adminPassword || siteConfig.adminPassword)
+      formDataObj.append('adminPassword', formData.adminPassword || siteConfig.adminPassword || 'admin123')
       formDataObj.append('whatsappNumber', formData.whatsappNumber)
       
       // Si hay una imagen nueva, subirla primero
