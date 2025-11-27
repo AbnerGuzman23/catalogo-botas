@@ -152,7 +152,7 @@ export default async function ProductDetail(props) {
                     <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
                       <div className="text-sm font-medium text-amber-700 mb-1">Calidad</div>
                       <div className="text-lg font-bold text-amber-900 flex items-center gap-1">
-                        ⭐ Alta
+                        ⭐
                       </div>
                     </div>
                   </div>
@@ -191,7 +191,7 @@ export default async function ProductDetail(props) {
           <div className="bg-white p-6 rounded-lg shadow-lg border border-amber-200">
             <div className="text-center">
               <div className="text-3xl mb-4">✨</div>
-              <h3 className="font-bold text-amber-900 mb-2">Calidad Alta</h3>
+              <h3 className="font-bold text-amber-900 mb-2">Calidad Premium</h3>
               <p className="text-amber-600 text-sm">Artículos auténticos</p>
             </div>
           </div>
