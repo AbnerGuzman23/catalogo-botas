@@ -72,10 +72,7 @@ export default async function ProductDetail(props) {
                 {getCategoryLabel(product.category)}
               </div>
               
-              {/* Badge premium */}
-              <div className="absolute top-6 right-6 z-10 bg-gradient-to-r from-yellow-400 to-yellow-500 text-amber-900 px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                ⭐ PREMIUM
-              </div>
+
 
               {product.imageUrl ? (
                 <Image
@@ -90,7 +87,7 @@ export default async function ProductDetail(props) {
                 <div className="w-full h-full flex items-center justify-center text-amber-600">
                   <div className="text-center">
                     <div className="text-8xl mb-4">{getCategoryIcon(product.category)}</div>
-                    <p className="text-xl font-medium text-amber-800">Producto Premium</p>
+                    <p className="text-xl font-medium text-amber-800">Imagen del Producto</p>
                     <p className="text-lg text-stone-600">Imagen no disponible</p>
                   </div>
                 </div>
@@ -155,46 +152,22 @@ export default async function ProductDetail(props) {
                     <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
                       <div className="text-sm font-medium text-amber-700 mb-1">Calidad</div>
                       <div className="text-lg font-bold text-amber-900 flex items-center gap-1">
-                        ⭐ Premium
+                        ⭐ Alta
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Características */}
-                <div className="mb-8">
-                  <h3 className="text-lg font-bold text-amber-900 mb-4">Características</h3>
-                  <div className="grid gap-3">
-                    <div className="flex items-center gap-3 text-amber-800">
-                      <span className="text-amber-600 font-bold">✓</span>
-                      Artículo western auténtico
-                    </div>
-                    <div className="flex items-center gap-3 text-amber-800">
-                      <span className="text-amber-600 font-bold">✓</span>
-                      Materiales de alta calidad
-                    </div>
-                    <div className="flex items-center gap-3 text-amber-800">
-                      <span className="text-amber-600 font-bold">✓</span>
-                      Diseño tradicional y duradero
-                    </div>
-                    <div className="flex items-center gap-3 text-amber-800">
-                      <span className="text-amber-600 font-bold">✓</span>
-                      Garantía de satisfacción
-                    </div>
-                  </div>
-                </div>
+
 
                 {/* Botones de acción */}
                 <div className="space-y-4">
                   <QuickAddToCart product={product} />
                   
-                  <div className="grid grid-cols-2 gap-4">
-                    <button className="bg-white border-2 border-amber-800 text-amber-800 hover:bg-amber-50 font-bold py-3 px-6 rounded-lg transition-all duration-300">
-                      💬 CONSULTAR
-                    </button>
+                  <div className="flex justify-center">
                     <Link 
                       href="/"
-                      className="bg-amber-700 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 text-center"
+                      className="bg-amber-700 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 text-center w-full"
                     >
                       ← SEGUIR VIENDO
                     </Link>
@@ -218,8 +191,8 @@ export default async function ProductDetail(props) {
           <div className="bg-white p-6 rounded-lg shadow-lg border border-amber-200">
             <div className="text-center">
               <div className="text-3xl mb-4">✨</div>
-              <h3 className="font-bold text-amber-900 mb-2">Calidad Premium</h3>
-              <p className="text-amber-600 text-sm">Artículos western auténticos</p>
+              <h3 className="font-bold text-amber-900 mb-2">Calidad Alta</h3>
+              <p className="text-amber-600 text-sm">Artículos auténticos</p>
             </div>
           </div>
           
