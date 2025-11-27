@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile } from 'fs/promises'
-import { join } from 'path'
 
 export async function POST(request) {
   try {
@@ -27,27 +25,17 @@ export async function POST(request) {
       }, { status: 400 })
     }
 
-    // Convertir el archivo a bytes
+    // Convertir el archivo a bytes y luego a base64
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-
-    // Crear nombre único para el archivo
-    const timestamp = Date.now()
-    const originalName = file.name.replace(/\s+/g, '-')
-    const fileName = `${timestamp}-${originalName}`
+    const base64 = buffer.toString('base64')
     
-    // Definir ruta donde guardar
-    const uploadPath = join(process.cwd(), 'public', 'uploads', fileName)
-
-    // Escribir archivo
-    await writeFile(uploadPath, buffer)
-
-    // Retornar URL del archivo
-    const fileUrl = `/uploads/${fileName}`
+    // Crear data URL completa
+    const dataUrl = `data:${file.type};base64,${base64}`
     
     return NextResponse.json({ 
       success: true, 
-      url: fileUrl,
+      url: dataUrl,
       message: 'Imagen subida correctamente'
     })
 
