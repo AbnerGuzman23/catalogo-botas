@@ -18,5 +18,13 @@ export default async function AdminDashboard() {
     getAvailableSizes()
   ])
 
+  // Debug en servidor
+  console.log('🔍 Server-side debug:')
+  console.log(`  Products count: ${products.length}`)
+  console.log(`  Available sizes: ${availableSizes.join(', ')}`)
+  if (products.length > 0) {
+    console.log(`  First product: ${products[0].name}`)
+  }
+
   return <AdminDashboardClient initialProducts={products} initialSizes={availableSizes} />
 }
