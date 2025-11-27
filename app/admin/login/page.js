@@ -1,6 +1,21 @@
 import { loginAction } from '@/lib/auth-actions'
 
-export default function AdminLogin() {
+export default function AdminLogin({ searchParams }) {
+  const error = searchParams?.error
+
+  const getErrorMessage = () => {
+    switch (error) {
+      case 'invalid':
+        return 'Credenciales incorrectas. Verifica tu usuario y contraseña.'
+      case 'missing':
+        return 'Por favor, ingresa tu usuario y contraseña.'
+      case 'server':
+        return 'Error interno del servidor. Inténtalo nuevamente.'
+      default:
+        return null
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -14,6 +29,12 @@ export default function AdminLogin() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {error && (
+            <div className="mb-4 p-3 rounded-md bg-red-50 border border-red-200">
+              <p className="text-sm text-red-600">{getErrorMessage()}</p>
+            </div>
+          )}
+          
           <form action={loginAction} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
