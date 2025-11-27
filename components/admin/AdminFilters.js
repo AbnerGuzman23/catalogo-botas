@@ -32,8 +32,8 @@ export default function AdminFilters({
           >
             <option value="">Todas las categorías</option>
             {categories.map((category) => (
-              <option key={category} value={category}>
-                {category.charAt(0).toUpperCase() + category.slice(1)}
+              <option key={category.slug} value={category.slug}>
+                {category.name}
               </option>
             ))}
           </select>
@@ -84,7 +84,7 @@ export default function AdminFilters({
         <div className="mt-3 flex flex-wrap gap-2">
           {selectedCategory && (
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              Categoría: {selectedCategory}
+              Categoría: {categories.find(cat => cat.slug === selectedCategory)?.name || selectedCategory}
               <button
                 onClick={() => onCategoryChange(null)}
                 className="flex-shrink-0 ml-1 h-4 w-4 rounded-full inline-flex items-center justify-center text-blue-400 hover:bg-blue-200 hover:text-blue-500 focus:outline-none"

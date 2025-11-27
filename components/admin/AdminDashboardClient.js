@@ -14,8 +14,11 @@ export default function AdminDashboardClient({ initialProducts, initialSizes }) 
   const [selectedSize, setSelectedSize] = useState(null)
   const [availableSizes, setAvailableSizes] = useState(initialSizes)
 
-  // Extraer categorías únicas de los productos
-  const categories = [...new Set(initialProducts.map(p => p.category).filter(Boolean))]
+  // Extraer categorías únicas de los productos (usando categoryRel)
+  const categoryObjects = initialProducts
+    .map(p => p.categoryRel)
+    .filter(Boolean)
+    .filter((cat, index, self) => self.findIndex(c => c.id === cat.id) === index)
   
   // Usar las tallas disponibles desde la base de datos
   const sizes = availableSizes.sort((a, b) => {
@@ -83,7 +86,7 @@ export default function AdminDashboardClient({ initialProducts, initialSizes }) 
         </div>
 
         <AdminFilters
-          categories={categories}
+          categories={categoryObjects}
           sizes={sizes}
           selectedCategory={selectedCategory}
           selectedSize={selectedSize}
