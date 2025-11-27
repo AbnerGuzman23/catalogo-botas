@@ -1,7 +1,19 @@
 import { loginAction } from '@/lib/auth-actions'
+import { cookies } from 'next/headers'
 
-export default function AdminLogin({ searchParams }) {
-  const error = searchParams?.error
+// Configurar como página dinámica para manejar cookies
+export const dynamic = 'force-dynamic'
+
+export default async function AdminLogin() {
+  // Leer error desde cookie
+  const cookieStore = await cookies()
+  const errorCookie = cookieStore.get('login-error')
+  const error = errorCookie?.value
+
+  // Limpiar la cookie de error después de leerla
+  if (error) {
+    cookieStore.delete('login-error')
+  }
 
   const getErrorMessage = () => {
     switch (error) {
@@ -31,7 +43,7 @@ export default function AdminLogin({ searchParams }) {
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {error && (
             <div className="mb-4 p-3 rounded-md bg-red-50 border border-red-200">
-              <p className="text-sm text-red-600">{getErrorMessage()}</p>
+              <p className="text-sm text-red-600">❌ {getErrorMessage()}</p>
             </div>
           )}
           
@@ -46,6 +58,7 @@ export default function AdminLogin({ searchParams }) {
                   name="username"
                   type="text"
                   required
+                  defaultValue="admin"
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
                   placeholder="Nombre de usuario"
                 />
@@ -71,18 +84,18 @@ export default function AdminLogin({ searchParams }) {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-800 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors"
               >
                 Iniciar sesión
               </button>
             </div>
           </form>
 
-          <div className="mt-6 bg-gray-50 p-4 rounded-md">
-            <p className="text-xs text-gray-500">
-              <strong>Credenciales por defecto:</strong><br />
-              Usuario: admin<br />
-              Contraseña: admin123
+          <div className="mt-6 bg-amber-50 p-4 rounded-md border border-amber-200">
+            <p className="text-xs text-amber-800">
+              <strong>💡 Para probar:</strong><br />
+              Usuario: <code className="bg-amber-100 px-1 rounded">admin</code><br />
+              Contraseña: <code className="bg-amber-100 px-1 rounded">admin123</code>
             </p>
           </div>
         </div>
