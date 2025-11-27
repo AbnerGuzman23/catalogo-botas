@@ -1,11 +1,14 @@
-import { createProduct } from '@/lib/actions'
+import { createProduct } from '@/lib/product-actions'
 import { getCategories } from '@/lib/category-actions'
 import { isAdminAuthenticated } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import AdminNavbar from '@/components/admin/AdminNavbar'
 import ProductForm from '@/components/admin/ProductForm'
 
-export default async function NewProduct() {
+// Configurar como página dinámica para evitar errores de renderizado estático
+export const dynamic = 'force-dynamic'
+
+export default async function NewProductPage() {
   if (!(await isAdminAuthenticated())) {
     redirect('/admin/login')
   }

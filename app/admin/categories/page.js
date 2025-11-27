@@ -5,6 +5,9 @@ import AdminNavbar from '@/components/admin/AdminNavbar'
 import CategoryList from '@/components/admin/CategoryList'
 import Link from 'next/link'
 
+// Configurar como página dinámica para evitar errores de renderizado estático
+export const dynamic = 'force-dynamic'
+
 export default async function CategoriesPage() {
   if (!(await isAdminAuthenticated())) {
     redirect('/admin/login')

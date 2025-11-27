@@ -4,6 +4,9 @@ import { redirect } from 'next/navigation'
 import AdminNavbar from '@/components/admin/AdminNavbar'
 import SettingsForm from '@/components/admin/SettingsForm'
 
+// Configurar como página dinámica para evitar errores de renderizado estático
+export const dynamic = 'force-dynamic'
+
 export default async function AdminSettings() {
   // Verificar autenticación del lado del servidor
   if (!(await isAdminAuthenticated())) {
