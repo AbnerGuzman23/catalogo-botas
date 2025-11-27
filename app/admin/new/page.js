@@ -1,4 +1,4 @@
-import { createProduct } from '@/lib/product-actions'
+import { createProduct } from '@/lib/actions'
 import { getCategories } from '@/lib/category-actions'
 import { isAdminAuthenticated } from '@/lib/auth'
 import { redirect } from 'next/navigation'
