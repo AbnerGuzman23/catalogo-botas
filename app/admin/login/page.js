@@ -1,9 +1,53 @@
-import { loginAction } from '@/lib/auth-actions'
+'use client'
 
-// Configurar como página dinámica para manejar cookies
-export const dynamic = 'force-dynamic'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function AdminLogin() {
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState('')
+  const router = useRouter()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setResult('')
+
+    const formData = new FormData(e.target)
+    const username = formData.get('username')
+    const password = formData.get('password')
+
+    console.log('🔄 Iniciando debug login...')
+    setResult('🔄 Procesando login...')
+
+    try {
+      const response = await fetch('/api/debug-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password })
+      })
+
+      const data = await response.json()
+      console.log('📥 Respuesta del servidor:', data)
+
+      if (data.success) {
+        setResult('✅ Login exitoso! Redirigiendo...')
+        setTimeout(() => {
+          router.push('/admin')
+        }, 1000)
+      } else {
+        setResult(`❌ Error: ${data.error}`)
+      }
+    } catch (error) {
+      console.error('💥 Error en fetch:', error)
+      setResult(`💥 Error de conexión: ${error.message}`)
+    }
+
+    setLoading(false)
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -18,13 +62,17 @@ export default function AdminLogin() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           
-          <div className="mb-4 p-3 rounded-md bg-blue-50 border border-blue-200">
-            <p className="text-sm text-blue-600">
-              🔧 <strong>DEBUG MODE:</strong> Revisa la consola del navegador (F12) para logs detallados del login
-            </p>
-          </div>
+          {result && (
+            <div className={`mb-4 p-3 rounded-md border ${
+              result.includes('✅') ? 'bg-green-50 border-green-200 text-green-600' :
+              result.includes('❌') || result.includes('💥') ? 'bg-red-50 border-red-200 text-red-600' :
+              'bg-blue-50 border-blue-200 text-blue-600'
+            }`}>
+              <p className="text-sm font-mono">{result}</p>
+            </div>
+          )}
           
-          <form action={loginAction} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                 Usuario
@@ -34,6 +82,7 @@ export default function AdminLogin() {
                   id="username"
                   name="username"
                   type="text"
+                  autoComplete="username"
                   required
                   defaultValue="admin"
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
@@ -51,6 +100,7 @@ export default function AdminLogin() {
                   id="password"
                   name="password"
                   type="password"
+                  autoComplete="current-password"
                   required
                   defaultValue="admin123"
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
@@ -62,9 +112,10 @@ export default function AdminLogin() {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-800 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors"
+                disabled={loading}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-800 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors disabled:opacity-50"
               >
-                Iniciar sesión
+                {loading ? 'Procesando...' : 'Iniciar sesión'}
               </button>
             </div>
           </form>
@@ -74,6 +125,12 @@ export default function AdminLogin() {
               <strong>💡 Credenciales de prueba:</strong><br />
               Usuario: <code className="bg-amber-100 px-1 rounded">admin</code><br />
               Contraseña: <code className="bg-amber-100 px-1 rounded">admin123</code>
+            </p>
+          </div>
+
+          <div className="mt-4 bg-blue-50 p-4 rounded-md border border-blue-200">
+            <p className="text-xs text-blue-800">
+              🔧 <strong>DEBUG:</strong> Los resultados aparecerán arriba y en la consola (F12)
             </p>
           </div>
         </div>
