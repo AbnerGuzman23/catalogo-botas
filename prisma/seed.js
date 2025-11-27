@@ -108,10 +108,18 @@ async function main() {
   ]
 
   for (const product of products) {
-    const createdProduct = await prisma.product.create({
-      data: product,
+    // Usar upsert para evitar duplicados
+    const createdProduct = await prisma.product.upsert({
+      where: { name: product.name },
+      create: product,
+      update: product
     })
-    console.log(`✅ Created product: ${product.name}`)
+    console.log(`✅ Created/Updated product: ${product.name}`)
+
+    // Eliminar inventario existente antes de crear nuevo
+    await prisma.productSize.deleteMany({
+      where: { productId: createdProduct.id }
+    })
 
     // Crear inventario de tallas para cada producto
     const sizes = ['38', '39', '40', '41', '42', '43', '44']
