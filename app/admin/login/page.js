@@ -84,7 +84,6 @@ export default function AdminLogin() {
                   type="text"
                   autoComplete="username"
                   required
-                  defaultValue="admin"
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
                   placeholder="Nombre de usuario"
                 />
@@ -102,7 +101,6 @@ export default function AdminLogin() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  defaultValue="admin123"
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
                   placeholder="Contraseña"
                 />
@@ -119,20 +117,6 @@ export default function AdminLogin() {
               </button>
             </div>
           </form>
-
-          <div className="mt-6 bg-gray-50 p-4 rounded-md border border-gray-200">
-            <p className="text-xs text-gray-800">
-              <strong>💡 Credenciales de prueba:</strong><br />
-              Usuario: <code className="bg-gray-100 px-1 rounded">admin</code><br />
-              Contraseña: <code className="bg-gray-100 px-1 rounded">admin123</code>
-            </p>
-          </div>
-
-          <div className="mt-4 bg-blue-50 p-4 rounded-md border border-blue-200">
-            <p className="text-xs text-blue-800">
-              🔧 <strong>DEBUG:</strong> Los resultados aparecerán arriba y en la consola (F12)
-            </p>
-          </div>
         </div>
       </div>
     </div>
