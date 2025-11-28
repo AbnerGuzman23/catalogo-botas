@@ -48,7 +48,7 @@ export default async function ProductDetail(props) {
             <div className="flex items-center gap-4">
               <Link 
                 href="/"
-                className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2"
+                className="bg-amber-700 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 font-medium border-2 border-amber-600"
               >
                 ← Volver al catálogo
               </Link>
