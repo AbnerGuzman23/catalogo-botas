@@ -75,7 +75,7 @@ export default async function ProductDetail(props) {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-amber-200">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
           <div className="grid lg:grid-cols-2 gap-0">
             {/* Imagen del producto */}
             <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100">
@@ -97,10 +97,10 @@ export default async function ProductDetail(props) {
                   priority
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-amber-600">
+                <div className="w-full h-full flex items-center justify-center text-gray-600">
                   <div className="text-center">
                     <div className="text-8xl mb-4">{getCategoryIcon(product.category)}</div>
-                    <p className="text-xl font-medium text-amber-800">Imagen del Producto</p>
+                    <p className="text-xl font-medium text-gray-800">Imagen del Producto</p>
                     <p className="text-lg text-stone-600">Imagen no disponible</p>
                   </div>
                 </div>

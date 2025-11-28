@@ -131,7 +131,7 @@ export default function CheckoutPage() {
           </p>
           <Link
             href="/"
-            className="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+            className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
           >
             Ir a la tienda
           </Link>
@@ -163,7 +163,7 @@ export default function CheckoutPage() {
             </button>
             <Link
               href="/"
-              className="block bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-lg transition-colors text-center"
+              className="block bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors text-center"
             >
               Seguir Comprando
             </Link>
@@ -197,7 +197,7 @@ export default function CheckoutPage() {
                     type="text"
                     value={customerData.name}
                     onChange={(e) => setCustomerData({...customerData, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-500"
                     placeholder="Tu nombre completo"
                   />
                 </div>
@@ -210,7 +210,7 @@ export default function CheckoutPage() {
                     type="email"
                     value={customerData.email}
                     onChange={(e) => setCustomerData({...customerData, email: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-500"
                     placeholder="tu@email.com"
                   />
                 </div>
@@ -223,7 +223,7 @@ export default function CheckoutPage() {
                     type="tel"
                     value={customerData.phone}
                     onChange={(e) => setCustomerData({...customerData, phone: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-500"
                     placeholder="+34 123 456 789"
                   />
                 </div>
@@ -237,7 +237,7 @@ export default function CheckoutPage() {
                 <button
                   type="submit"
                   disabled={isProcessing}
-                  className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                  className="w-full bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition-colors"
                 >
                   {isProcessing ? 'Procesando...' : 'Confirmar Pedido'}
                 </button>
@@ -277,7 +277,7 @@ export default function CheckoutPage() {
                       <p className="text-xs text-gray-500 dark:text-gray-400">
                         Talla: {item.size} • Qty: {item.quantity}
                       </p>
-                      <p className="text-sm font-bold text-amber-600 dark:text-amber-400">
+                      <p className="text-sm font-bold text-gray-600 dark:text-gray-400">
                         {formatPrice(item.price * item.quantity)}
                       </p>
                     </div>
@@ -290,7 +290,7 @@ export default function CheckoutPage() {
                   <span className="text-lg font-bold text-gray-900 dark:text-white">
                     Total:
                   </span>
-                  <span className="text-lg font-bold text-amber-600 dark:text-amber-400">
+                  <span className="text-lg font-bold text-gray-600 dark:text-gray-400">
                     {formatPrice(getTotalPrice())}
                   </span>
                 </div>

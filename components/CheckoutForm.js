@@ -136,8 +136,8 @@ export default function CheckoutForm({ onBack, onClose }) {
       {/* Contenido del formulario */}
       <div className="flex-1 overflow-y-auto p-6">
         {/* Resumen del pedido */}
-        <div className="bg-amber-50 dark:bg-slate-600 border border-amber-200 dark:border-slate-500 rounded-lg p-4 mb-6">
-          <h3 className="font-bold text-amber-900 dark:text-amber-200 mb-3 flex items-center gap-2">
+        <div className="bg-gray-50 dark:bg-slate-600 border border-gray-200 dark:border-slate-500 rounded-lg p-4 mb-6">
+          <h3 className="font-bold text-gray-900 dark:text-gray-200 mb-3 flex items-center gap-2">
             <span>📦</span>
             Resumen del Pedido
           </h3>
@@ -147,13 +147,13 @@ export default function CheckoutForm({ onBack, onClose }) {
                 <span className="text-stone-700 dark:text-slate-300">
                   {item.name} (Talla {item.size}) x{item.quantity}
                 </span>
-                <span className="font-medium text-amber-800 dark:text-amber-300">
+                <span className="font-medium text-gray-800 dark:text-gray-300">
                   {formatPrice(item.price * item.quantity)}
                 </span>
               </div>
             ))}
-            <div className="border-t border-amber-300 pt-2 mt-3">
-              <div className="flex justify-between font-bold text-amber-900 dark:text-amber-200">
+            <div className="border-t border-gray-300 pt-2 mt-3">
+              <div className="flex justify-between font-bold text-gray-900 dark:text-gray-200">
                 <span>Total:</span>
                 <span>{formatPrice(cartTotal)}</span>
               </div>

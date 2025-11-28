@@ -113,18 +113,18 @@ export default function AdminLogin() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-800 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors disabled:opacity-50"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors disabled:opacity-50"
               >
                 {loading ? 'Procesando...' : 'Iniciar sesión'}
               </button>
             </div>
           </form>
 
-          <div className="mt-6 bg-amber-50 p-4 rounded-md border border-amber-200">
-            <p className="text-xs text-amber-800">
+          <div className="mt-6 bg-gray-50 p-4 rounded-md border border-gray-200">
+            <p className="text-xs text-gray-800">
               <strong>💡 Credenciales de prueba:</strong><br />
-              Usuario: <code className="bg-amber-100 px-1 rounded">admin</code><br />
-              Contraseña: <code className="bg-amber-100 px-1 rounded">admin123</code>
+              Usuario: <code className="bg-gray-100 px-1 rounded">admin</code><br />
+              Contraseña: <code className="bg-gray-100 px-1 rounded">admin123</code>
             </p>
           </div>
 

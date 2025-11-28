@@ -91,11 +91,11 @@ export default function ProductCard({ product }) {
           
           <div className={`px-3 py-2 rounded-lg ${
             totalStock > 0 
-              ? 'bg-gradient-to-r from-amber-100 to-amber-200 border border-amber-300'
+              ? 'bg-gradient-to-r from-gray-100 to-gray-200 border border-gray-300'
               : 'bg-gradient-to-r from-red-100 to-orange-100 border border-red-300'
           }`}>
             <div className={`text-xs font-semibold tracking-wider ${
-              totalStock > 0 ? 'text-amber-800' : 'text-red-800'
+              totalStock > 0 ? 'text-gray-800' : 'text-red-800'
             }`}>
               TALLAS: {totalStock > 0 
                 ? (availableSizes.length > 3 
@@ -105,7 +105,7 @@ export default function ProductCard({ product }) {
               }
             </div>
             {totalStock > 0 ? (
-              <div className="text-xs text-amber-600 mt-1">
+              <div className="text-xs text-gray-600 mt-1">
                 Stock: {totalStock} unidades
               </div>
             ) : (

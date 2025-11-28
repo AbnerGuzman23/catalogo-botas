@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <CartProvider>
-          <div className="bg-amber-50 text-amber-900 min-h-screen">
+          <div className="bg-gray-50 text-gray-900 min-h-screen">
             {children}
           </div>
           <CartSidebar />

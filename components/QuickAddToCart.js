@@ -74,7 +74,7 @@ export default function QuickAddToCart({ product }) {
         <select
           value={selectedSize}
           onChange={(e) => setSelectedSize(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
           <option value="">Seleccionar talla</option>
           {availableSizes.map((item) => (
@@ -127,7 +127,7 @@ export default function QuickAddToCart({ product }) {
       <button
         onClick={handleAddToCart}
         disabled={!selectedSize || isLoading}
-        className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-500 ease-in-out text-xs sm:text-sm transform hover:scale-105 hover:-translate-y-1 shadow-md hover:shadow-xl"
+        className="w-full bg-gray-600 hover:bg-gray-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-500 ease-in-out text-xs sm:text-sm transform hover:scale-105 hover:-translate-y-1 shadow-md hover:shadow-xl"
       >
         {isLoading ? 'Agregando...' : '🛒 Agregar al Carrito'}
       </button>

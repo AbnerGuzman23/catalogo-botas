@@ -35,7 +35,7 @@ export default function CartSidebar() {
       {/* Sidebar */}
       <div className="fixed right-0 top-0 h-full w-full max-w-xs sm:max-w-md bg-white dark:bg-gray-800 shadow-2xl z-50 transform transition-all duration-500 ease-in-out overflow-hidden flex flex-col animate-slide-in">
         {/* Header */}
-        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-amber-50 to-amber-100 dark:from-gray-700 dark:to-gray-800">
+        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
             Carrito ({getTotalItems()})
           </h2>
@@ -87,7 +87,7 @@ export default function CartSidebar() {
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         Talla: {item.size}
                       </p>
-                      <p className="text-sm font-bold text-amber-600 dark:text-amber-400 mt-1">
+                      <p className="text-sm font-bold text-gray-600 dark:text-gray-400 mt-1">
                         {formatPrice(item.price)}
                       </p>
                       
@@ -133,7 +133,7 @@ export default function CartSidebar() {
               <span className="text-lg font-bold text-gray-900 dark:text-white">
                 Total:
               </span>
-              <span className="text-lg font-bold text-amber-600 dark:text-amber-400">
+              <span className="text-lg font-bold text-gray-600 dark:text-gray-400">
                 {formatPrice(getTotalPrice())}
               </span>
             </div>
@@ -141,7 +141,7 @@ export default function CartSidebar() {
             <Link
               href="/checkout"
               onClick={toggleCart}
-              className="block w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors"
+              className="block w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors"
             >
               Finalizar Pedido
             </Link>

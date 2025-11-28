@@ -137,7 +137,7 @@ export default function SettingsForm({ siteConfig }) {
             value={formData.siteName}
             onChange={handleChange}
             required
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             placeholder="RR BOOTS"
           />
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -156,7 +156,7 @@ export default function SettingsForm({ siteConfig }) {
             value={formData.siteDescription}
             onChange={handleChange}
             required
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             placeholder="Artículos Western de Calidad Premium"
           />
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -179,8 +179,8 @@ export default function SettingsForm({ siteConfig }) {
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-md file:border-0
                 file:text-sm file:font-semibold
-                file:bg-amber-50 file:text-amber-700
-                hover:file:bg-amber-100
+                file:bg-gray-50 file:text-gray-700
+                hover:file:bg-gray-100
                 dark:file:bg-gray-700 dark:file:text-gray-300"
             />
           </div>
@@ -223,7 +223,7 @@ export default function SettingsForm({ siteConfig }) {
                 rows="3"
                 value={formData.footerAbout}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 placeholder="Más de 25 años especializados en artículos western..."
               />
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -241,7 +241,7 @@ export default function SettingsForm({ siteConfig }) {
                 rows="4"
                 value={formData.footerProducts}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 placeholder="• Zapatos Vaqueros&#10;• Cinturones de Cuero..."
               />
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -259,7 +259,7 @@ export default function SettingsForm({ siteConfig }) {
                 rows="4"
                 value={formData.footerServices}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 placeholder="🤠 Artículos western auténticos&#10;📞 Asesoría especializada..."
               />
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -288,7 +288,7 @@ export default function SettingsForm({ siteConfig }) {
                 id="adminPassword"
                 value={formData.adminPassword}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 placeholder="Deja vacío para mantener la actual"
               />
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -306,7 +306,7 @@ export default function SettingsForm({ siteConfig }) {
                 id="whatsappNumber"
                 value={formData.whatsappNumber}
                 onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 placeholder="50212345678"
                 required
               />
@@ -321,7 +321,7 @@ export default function SettingsForm({ siteConfig }) {
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>

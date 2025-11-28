@@ -11,7 +11,7 @@ export default function CartFloatingButton() {
   return (
     <button
       onClick={toggleCart}
-      className="fixed bottom-6 right-6 bg-amber-600 hover:bg-amber-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 z-30"
+      className="fixed bottom-6 right-6 bg-gray-600 hover:bg-gray-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 z-30"
       title={`Carrito (${totalItems} ${totalItems === 1 ? 'artículo' : 'artículos'})`}
     >
       <div className="relative">

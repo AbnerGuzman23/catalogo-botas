@@ -32,8 +32,8 @@ export default function AddToCartButton({ product }) {
         justAdded
           ? 'bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 scale-105'
           : isAdding
-          ? 'bg-amber-600 dark:bg-amber-700 scale-95 cursor-not-allowed'
-          : 'bg-gradient-to-r from-amber-800 to-amber-700 hover:from-amber-700 hover:to-amber-600 dark:from-amber-700 dark:to-amber-600 dark:hover:from-amber-600 dark:hover:to-amber-500 hover:shadow-xl hover:-translate-y-1'
+          ? 'bg-gray-600 dark:bg-gray-700 scale-95 cursor-not-allowed'
+          : 'bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 dark:from-gray-700 dark:to-gray-600 dark:hover:from-gray-600 dark:hover:to-gray-500 hover:shadow-xl hover:-translate-y-1'
       } text-white`}
     >
       <div className="flex items-center justify-center gap-3">
