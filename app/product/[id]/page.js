@@ -1,4 +1,4 @@
-import { getProductById } from '@/lib/actions'
+import { getProductById, getSiteConfig } from '@/lib/actions'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,7 +6,10 @@ import QuickAddToCart from '@/components/QuickAddToCart'
 
 export default async function ProductDetail(props) {
   const params = await props.params
-  const product = await getProductById(params.id)
+  const [product, siteConfig] = await Promise.all([
+    getProductById(params.id),
+    getSiteConfig()
+  ])
 
   if (!product) {
     notFound()
@@ -52,10 +55,20 @@ export default async function ProductDetail(props) {
               >
                 ← Volver al catálogo
               </Link>
-              <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                <span className="text-xl">🤠</span>
+              <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center overflow-hidden">
+                {siteConfig.logoUrl ? (
+                  <Image
+                    src={siteConfig.logoUrl}
+                    alt="Logo"
+                    width={32}
+                    height={32}
+                    className="object-cover rounded-full"
+                  />
+                ) : (
+                  <span className="text-xl font-bold text-white">RR</span>
+                )}
               </div>
-              <h1 className="text-2xl font-bold">RR BOOTS</h1>
+              <h1 className="text-2xl font-bold">{siteConfig.siteName || 'RR BOOTS'}</h1>
             </div>
           </div>
         </div>
