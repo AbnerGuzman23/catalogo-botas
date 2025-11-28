@@ -43,15 +43,15 @@ export default async function ProductDetail(props) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-stone-100">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Header */}
-      <header className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 text-white">
+      <header className="bg-gradient-to-r from-black via-gray-900 to-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link 
                 href="/"
-                className="bg-amber-700 hover:bg-amber-600 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 font-medium border-2 border-amber-600"
+                className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 font-medium border-2 border-gray-600"
               >
                 ← Volver al catálogo
               </Link>
@@ -78,9 +78,9 @@ export default async function ProductDetail(props) {
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-amber-200">
           <div className="grid lg:grid-cols-2 gap-0">
             {/* Imagen del producto */}
-            <div className="relative aspect-square bg-gradient-to-br from-amber-50 to-stone-100">
+            <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100">
               {/* Badge de categoría */}
-              <div className="absolute top-6 left-6 z-10 bg-amber-900 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-lg">
+              <div className="absolute top-6 left-6 z-10 bg-black text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-lg">
                 <span className="text-lg">{product.categoryRel?.icon || '👢'}</span>
                 {product.categoryRel?.name || 'Sin categoría'}
               </div>
@@ -112,12 +112,12 @@ export default async function ProductDetail(props) {
               <div className="h-full flex flex-col">
                 {/* Título y precio */}
                 <div className="mb-6">
-                  <h1 className="text-3xl lg:text-4xl font-bold text-amber-900 mb-4 leading-tight">
+                  <h1 className="text-3xl lg:text-4xl font-bold text-black mb-4 leading-tight">
                     {product.name}
                   </h1>
                   
                   <div className="flex items-center gap-4 mb-6">
-                    <span className="text-4xl lg:text-5xl font-bold text-amber-800">
+                    <span className="text-4xl lg:text-5xl font-bold text-gray-800">
                       {formatPrice(product.price)}
                     </span>
                   </div>
@@ -125,26 +125,26 @@ export default async function ProductDetail(props) {
 
                 {/* Descripción */}
                 <div className="flex-grow mb-8">
-                  <h2 className="text-xl font-bold text-amber-900 mb-4">Descripción del Producto</h2>
-                  <p className="text-amber-800 text-lg leading-relaxed">
+                  <h2 className="text-xl font-bold text-black mb-4">Descripción del Producto</h2>
+                  <p className="text-gray-700 text-lg leading-relaxed">
                     {product.description}
                   </p>
                 </div>
 
                 {/* Información adicional */}
                 <div className="mb-8">
-                  <h3 className="text-lg font-bold text-amber-900 mb-4">Detalles del Producto</h3>
+                  <h3 className="text-lg font-bold text-black mb-4">Detalles del Producto</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
-                      <div className="text-sm font-medium text-amber-700 mb-1">Categoría</div>
-                      <div className="text-lg font-bold text-amber-900 flex items-center gap-2">
+                    <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                      <div className="text-sm font-medium text-gray-600 mb-1">Categoría</div>
+                      <div className="text-lg font-bold text-black flex items-center gap-2">
                         <span>{product.categoryRel?.icon || '👢'}</span>
                         {product.categoryRel?.name || 'Sin categoría'}
                       </div>
                     </div>
                     
-                    <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
-                      <div className="text-sm font-medium text-amber-700 mb-1">Tallas Disponibles</div>
+                    <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                      <div className="text-sm font-medium text-gray-600 mb-1">Tallas Disponibles</div>
                       <div className="flex flex-wrap gap-1">
                         {product.inventory && product.inventory.length > 0 ? (
                           product.inventory
@@ -153,21 +153,21 @@ export default async function ProductDetail(props) {
                             .map((inv) => (
                               <span 
                                 key={inv.size} 
-                                className="px-2 py-1 text-xs font-bold bg-amber-800 text-white rounded-full"
+                                className="px-2 py-1 text-xs font-bold bg-black text-white rounded-full"
                                 title={`Stock: ${inv.quantity}`}
                               >
                                 {inv.size}
                               </span>
                             ))
                         ) : (
-                          <span className="text-sm text-amber-800">Consultar disponibilidad</span>
+                          <span className="text-sm text-gray-700">Consultar disponibilidad</span>
                         )}
                       </div>
                     </div>
                     
-                    <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
-                      <div className="text-sm font-medium text-amber-700 mb-1">Precio</div>
-                      <div className="text-lg font-bold text-amber-900">
+                    <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                      <div className="text-sm font-medium text-gray-600 mb-1">Precio</div>
+                      <div className="text-lg font-bold text-black">
                         {formatPrice(product.price)}
                       </div>
                     </div>
@@ -183,7 +183,7 @@ export default async function ProductDetail(props) {
                   <div className="flex justify-center">
                     <Link 
                       href="/"
-                      className="bg-amber-700 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 text-center w-full"
+                      className="bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 text-center w-full"
                     >
                       ← SEGUIR VIENDO
                     </Link>
@@ -196,27 +196,27 @@ export default async function ProductDetail(props) {
 
         {/* Información adicional */}
         <div className="mt-12 grid md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-lg border border-amber-200">
+          <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
             <div className="text-center">
               <div className="text-3xl mb-4">🚚</div>
-              <h3 className="font-bold text-amber-900 mb-2">Envío Seguro</h3>
-              <p className="text-amber-600 text-sm">Entrega cuidadosa de tu pedido</p>
+              <h3 className="font-bold text-black mb-2">Envío Seguro</h3>
+              <p className="text-gray-600 text-sm">Entrega cuidadosa de tu pedido</p>
             </div>
           </div>
           
-          <div className="bg-white p-6 rounded-lg shadow-lg border border-amber-200">
+          <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
             <div className="text-center">
               <div className="text-3xl mb-4">✨</div>
-              <h3 className="font-bold text-amber-900 mb-2">Calidad Premium</h3>
-              <p className="text-amber-600 text-sm">Artículos auténticos</p>
+              <h3 className="font-bold text-black mb-2">Calidad Premium</h3>
+              <p className="text-gray-600 text-sm">Artículos auténticos</p>
             </div>
           </div>
           
-          <div className="bg-white p-6 rounded-lg shadow-lg border border-amber-200">
+          <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
             <div className="text-center">
               <div className="text-3xl mb-4">🤝</div>
-              <h3 className="font-bold text-amber-900 mb-2">Garantía</h3>
-              <p className="text-amber-600 text-sm">Satisfacción garantizada</p>
+              <h3 className="font-bold text-black mb-2">Garantía</h3>
+              <p className="text-gray-600 text-sm">Satisfacción garantizada</p>
             </div>
           </div>
         </div>
