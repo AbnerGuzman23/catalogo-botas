@@ -107,9 +107,16 @@ export default async function ProductDetail(props) {
                     <span className="text-4xl lg:text-5xl font-bold text-amber-800">
                       {formatPrice(product.price)}
                     </span>
-                    <div className="bg-gradient-to-r from-amber-100 to-amber-200 border-2 border-amber-300 px-6 py-3 rounded-full">
-                      <span className="text-lg font-bold text-amber-800 tracking-wider">
-                        TALLA {product.size}
+                    <div className="bg-amber-800 text-white px-6 py-3 rounded-full border-2 border-amber-700">
+                      <span className="text-lg font-bold tracking-wider">
+                        TALLAS: {product.inventory && product.inventory.length > 0 
+                          ? product.inventory
+                              .filter(inv => inv.quantity > 0)
+                              .map(inv => inv.size)
+                              .sort((a, b) => parseFloat(a) - parseFloat(b))
+                              .join(', ')
+                          : 'Consultar'
+                        }
                       </span>
                     </div>
                   </div>
@@ -136,9 +143,24 @@ export default async function ProductDetail(props) {
                     </div>
                     
                     <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
-                      <div className="text-sm font-medium text-amber-700 mb-1">Talla</div>
-                      <div className="text-lg font-bold text-amber-900">
-                        {product.size}
+                      <div className="text-sm font-medium text-amber-700 mb-1">Tallas Disponibles</div>
+                      <div className="flex flex-wrap gap-1">
+                        {product.inventory && product.inventory.length > 0 ? (
+                          product.inventory
+                            .filter(inv => inv.quantity > 0)
+                            .sort((a, b) => parseFloat(a.size) - parseFloat(b.size))
+                            .map((inv) => (
+                              <span 
+                                key={inv.size} 
+                                className="px-2 py-1 text-xs font-bold bg-amber-800 text-white rounded-full"
+                                title={`Stock: ${inv.quantity}`}
+                              >
+                                {inv.size}
+                              </span>
+                            ))
+                        ) : (
+                          <span className="text-sm text-amber-800">Consultar disponibilidad</span>
+                        )}
                       </div>
                     </div>
                     
