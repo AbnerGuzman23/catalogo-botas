@@ -4,7 +4,7 @@ import { getCategories } from '@/lib/category-actions'
 import { getBrands } from '@/lib/brand-actions'
 import ProductGrid from '@/components/ProductGrid'
 import SizeFilter from '@/components/SizeFilter'
-import MinimalFilters from '@/components/MinimalFilters'
+import FilterPanel from '@/components/FilterPanel'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -36,10 +36,13 @@ export default async function Home(props) {
   const cleanCategoryFilter = categoryFilter && categoryFilter.trim() !== '' ? categoryFilter : null
   
   const products = await getProducts(sizeFilter, cleanCategoryFilter, genderFilter, brandFilter)
+  const allProducts = await getProducts() // Para el panel de filtros
   const availableSizes = await getAvailableSizes()
   const categories = await getCategories()
   const brands = await getBrands()
   const siteConfig = await getSiteConfig()
+
+  const hasActiveFilters = genderFilter || brandFilter || categoryFilter || sizeFilter
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
@@ -72,31 +75,36 @@ export default async function Home(props) {
         </div>
       </header>
 
-      {/* Filtros Minimalistas */}
-      <MinimalFilters 
+      {/* Panel de Filtros Lateral */}
+      <FilterPanel 
         brands={brands} 
         categories={categories} 
-        products={products}
+        products={allProducts}
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Indicador de filtros activos - Solo si hay marca o categoría seleccionada */}
-        {(brandFilter || categoryFilter || sizeFilter) && (
+        {/* Indicador de filtros activos */}
+        {hasActiveFilters && (
           <div className="mb-8 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-sm">
+              {genderFilter && (
+                <span className="text-gray-700 dark:text-gray-300 capitalize">
+                  {genderFilter === 'hombre' ? 'Hombre' : genderFilter === 'mujer' ? 'Mujer' : 'Unisex'}
+                </span>
+              )}
               {brandFilter && (
                 <span className="text-gray-700 dark:text-gray-300">
-                  {brands.find(b => b.id == brandFilter)?.name || 'Brand'}
+                  • {brands.find(b => b.id == brandFilter)?.name || 'Brand'}
                 </span>
               )}
               {categoryFilter && (
                 <span className="text-gray-700 dark:text-gray-300">
-                  • {categories.find(c => c.slug === categoryFilter)?.name || 'Category'}
+                  • {categories.find(c => c.id == categoryFilter)?.name || 'Category'}
                 </span>
               )}
               {sizeFilter && (
                 <span className="text-gray-700 dark:text-gray-300">
-                  • Size {sizeFilter}
+                  • Talla {sizeFilter}
                 </span>
               )}
               <Link
@@ -109,43 +117,50 @@ export default async function Home(props) {
           </div>
         )}
 
-        {/* Filtro por talla - Solo si hay marca seleccionada */}
-        {brandFilter && (
+        {/* Filtro por talla - Solo si hay filtros activos */}
+        {hasActiveFilters && (
           <div className="mb-8">
             <SizeFilterWrapper sizes={availableSizes} currentSize={sizeFilter} />
           </div>
         )}
 
         {/* Grid de productos */}
-        {(genderFilter || brandFilter) ? (
-          <ProductGrid products={products} />
+        {hasActiveFilters ? (
+          products.length > 0 ? (
+            <ProductGrid products={products} />
+          ) : (
+            <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-200 mb-2">
+                No se encontraron productos
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                No hay productos que coincidan con tu selección.
+              </p>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
+              >
+                Ver Todos los Productos
+              </Link>
+            </div>
+          )
         ) : (
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🤠</div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-200 mb-2">
-              Welcome to RR BOOTS
+              Bienvenido a RR BOOTS
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Select a gender above to start exploring our collection
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Usa el botón de filtros en la esquina superior derecha para explorar nuestra colección
             </p>
-          </div>
-        )}
-
-        {products.length === 0 && (genderFilter || brandFilter) && (
-          <div className="text-center py-20 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-200 mb-2">
-              No products found
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              No products match your current selection.
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
-            >
-              View All Products
-            </Link>
+            <div className="flex justify-center">
+              <div className="animate-bounce">
+                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 11l3-3m0 0l3 3m-3-3v8" />
+                </svg>
+              </div>
+            </div>
           </div>
         )}
       </main>
