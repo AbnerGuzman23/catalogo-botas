@@ -1,10 +1,12 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useState, useEffect } from 'react'
 
 export default function SizeFilter({ sizes, currentSize }) {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleSizeChange = (size) => {
     const params = new URLSearchParams(searchParams)
@@ -18,47 +20,67 @@ export default function SizeFilter({ sizes, currentSize }) {
     const queryString = params.toString()
     const url = queryString ? `/?${queryString}` : '/'
     router.push(url)
+    setIsOpen(false)
   }
 
+  // Cerrar dropdown al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setIsOpen(false)
+    }
+    
+    if (isOpen) {
+      document.addEventListener('click', handleClickOutside)
+      return () => document.removeEventListener('click', handleClickOutside)
+    }
+  }, [isOpen])
+
   return (
-    <div className="bg-white border border-gray-200 p-8 rounded-lg shadow-lg">
-      <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2 tracking-wide">FILTRAR POR TALLA</h3>
-        <div className="w-16 h-0.5 bg-gray-600 mx-auto"></div>
-      </div>
-      
-      <div className="flex flex-wrap justify-center gap-3">
-        <button
-          onClick={() => handleSizeChange('all')}
-          className={`px-6 py-3 rounded-lg text-sm font-bold tracking-wider transition-all duration-300 border-2 transform hover:scale-105
-            ${!currentSize 
-              ? 'bg-gray-800 text-white border-gray-800 shadow-lg' 
-              : 'bg-white text-gray-800 border-gray-300 hover:border-gray-500 hover:bg-gray-50'
-            }`}
+    <div className="relative inline-block">
+      {/* Botón principal */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation()
+          setIsOpen(!isOpen)
+        }}
+        className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+      >
+        <span>{currentSize || 'Todas las tallas'}</span>
+        <svg 
+          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
         >
-          TODAS
-        </button>
-        
-        {sizes.map((size) => (
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {/* Dropdown */}
+      {isOpen && (
+        <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
+          {/* Opción "Todas las tallas" */}
           <button
-            key={size}
-            onClick={() => handleSizeChange(size)}
-            className={`px-6 py-3 rounded-lg text-sm font-bold tracking-wider transition-all duration-300 border-2 transform hover:scale-105
-              ${currentSize === size 
-                ? 'bg-gray-800 text-white border-gray-800 shadow-lg' 
-                : 'bg-white text-gray-800 border-gray-300 hover:border-gray-500 hover:bg-gray-50'
-              }`}
+            onClick={() => handleSizeChange('all')}
+            className={`w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors border-b border-gray-100 ${
+              !currentSize ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+            }`}
           >
-            {size}
+            Todas las tallas
           </button>
-        ))}
-      </div>
-      
-      {currentSize && (
-        <div className="text-center mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <p className="text-gray-900 font-medium">
-            Mostrando productos para la talla: <span className="font-bold text-gray-800 text-lg">{currentSize}</span>
-          </p>
+          
+          {/* Opciones de tallas */}
+          {sizes.map((size) => (
+            <button
+              key={size}
+              onClick={() => handleSizeChange(size)}
+              className={`w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 ${
+                currentSize === size ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+              }`}
+            >
+              {size}
+            </button>
+          ))}
         </div>
       )}
     </div>

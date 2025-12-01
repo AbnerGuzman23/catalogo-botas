@@ -119,7 +119,7 @@ export default async function Home(props) {
 
         {/* Filtro por talla - Solo si hay filtros activos */}
         {hasActiveFilters && (
-          <div className="mb-8">
+          <div className="mb-8 flex justify-start">
             <SizeFilterWrapper sizes={availableSizes} currentSize={sizeFilter} />
           </div>
         )}
