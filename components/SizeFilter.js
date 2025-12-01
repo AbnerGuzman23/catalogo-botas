@@ -43,7 +43,7 @@ export default function SizeFilter({ sizes, currentSize }) {
           e.stopPropagation()
           setIsOpen(!isOpen)
         }}
-        className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+        className="flex items-center gap-2 px-4 py-2 bg-white border border-black text-sm font-medium text-black hover:bg-black hover:text-white focus:outline-none transition-all duration-200"
       >
         <span>{currentSize || 'Todas las tallas'}</span>
         <svg 
@@ -58,12 +58,12 @@ export default function SizeFilter({ sizes, currentSize }) {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
+        <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-black z-50 max-h-64 overflow-y-auto">
           {/* Opción "Todas las tallas" */}
           <button
             onClick={() => handleSizeChange('all')}
-            className={`w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors border-b border-gray-100 ${
-              !currentSize ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+            className={`w-full text-left px-4 py-2 hover:bg-black hover:text-white transition-colors border-b border-black ${
+              !currentSize ? 'bg-black text-white font-medium' : 'text-black'
             }`}
           >
             Todas las tallas
@@ -74,8 +74,8 @@ export default function SizeFilter({ sizes, currentSize }) {
             <button
               key={size}
               onClick={() => handleSizeChange(size)}
-              className={`w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 ${
-                currentSize === size ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+              className={`w-full text-left px-4 py-2 hover:bg-black hover:text-white transition-colors border-b border-black last:border-b-0 ${
+                currentSize === size ? 'bg-black text-white font-medium' : 'text-black'
               }`}
             >
               {size}
