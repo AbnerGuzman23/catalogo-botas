@@ -29,7 +29,9 @@ export default function FilterPanel({ brands, categories, products }) {
         .filter(brandId => brandId !== null)
     )
     
-    return brands.filter(brand => availableBrandIds.has(brand.id))
+    return brands.filter(brand => 
+      availableBrandIds.has(brand.id) && availableBrandIds.size > 0
+    )
   }
 
   // Obtener categorías disponibles para género y marca seleccionados
@@ -48,7 +50,9 @@ export default function FilterPanel({ brands, categories, products }) {
         .filter(categoryId => categoryId !== null)
     )
     
-    return categories.filter(category => availableCategoryIds.has(category.id))
+    return categories.filter(category => 
+      availableCategoryIds.has(category.id) && availableCategoryIds.size > 0
+    )
   }
 
   // Aplicar filtros
