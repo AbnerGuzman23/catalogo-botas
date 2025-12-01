@@ -63,9 +63,12 @@ export default async function Home(props) {
               ) : (
                 <span className="text-2xl mr-3">🤠</span>
               )}
-              <h1 className="text-3xl md:text-4xl font-light tracking-wider text-gray-900 dark:text-white">
+              <Link 
+                href="/"
+                className="text-3xl md:text-4xl font-light tracking-wider text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 cursor-pointer"
+              >
                 {siteConfig.siteName}
-              </h1>
+              </Link>
             </div>
             
             <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 font-light">
