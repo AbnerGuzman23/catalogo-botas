@@ -1,8 +1,10 @@
 import { Suspense } from 'react'
 import { getProducts, getAvailableSizes, getSiteConfig } from '@/lib/actions'
 import { getCategories } from '@/lib/category-actions'
+import { getBrands } from '@/lib/brand-actions'
 import ProductGrid from '@/components/ProductGrid'
 import SizeFilter from '@/components/SizeFilter'
+import AdvancedFilters from '@/components/AdvancedFilters'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -27,13 +29,16 @@ export default async function Home(props) {
   const searchParams = await props.searchParams
   const sizeFilter = searchParams?.size || null
   const categoryFilter = searchParams?.category || null
+  const genderFilter = searchParams?.gender || null
+  const brandFilter = searchParams?.brand || null
   
   // Limpiar categoryFilter si está vacío
   const cleanCategoryFilter = categoryFilter && categoryFilter.trim() !== '' ? categoryFilter : null
   
-  const products = await getProducts(sizeFilter, cleanCategoryFilter)
+  const products = await getProducts(sizeFilter, cleanCategoryFilter, genderFilter, brandFilter)
   const availableSizes = await getAvailableSizes()
   const categories = await getCategories()
+  const brands = await getBrands()
   const siteConfig = await getSiteConfig()
 
   return (
@@ -80,49 +85,81 @@ export default async function Home(props) {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Filtros de categoría */}
-        <div className="text-center mb-12">
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Link href="/" className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-              !cleanCategoryFilter ? 'bg-gray-800 text-white shadow-lg' : 'bg-gray-100 text-gray-800 border-2 border-gray-300 hover:bg-gray-200'
-            }`}>
-              TODOS
-            </Link>
-            {categories.map((category) => (
-              <Link 
-                key={category.id}
-                href={`?category=${category.slug}`} 
-                className={`px-3 sm:px-4 lg:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-500 ease-in-out flex items-center gap-1 sm:gap-2 text-xs sm:text-sm lg:text-base hover:scale-105 transform ${
-                  cleanCategoryFilter === category.slug ? 'bg-gray-800 text-white shadow-lg' : 'bg-gray-100 text-gray-800 border-2 border-gray-300 hover:bg-gray-200'
-                }`}
-              >
-                {category.icon && <span>{category.icon}</span>}
-                {category.name.toUpperCase()}
-              </Link>
-            ))}
-          </div>
-        </div>
+        {/* Filtros Avanzados */}
+        <AdvancedFilters 
+          brands={brands} 
+          categories={categories} 
+          products={products}
+        />
 
-        {/* Filtro por talla */}
-        <div className="mb-12">
-          <SizeFilterWrapper sizes={availableSizes} currentSize={sizeFilter} />
-        </div>
+        {/* Filtro por talla (solo si hay filtros activos) */}
+        {(genderFilter || brandFilter || categoryFilter) && (
+          <div className="mb-8">
+            <SizeFilterWrapper sizes={availableSizes} currentSize={sizeFilter} />
+          </div>
+        )}
+
+        {/* Indicador de filtros activos */}
+        {(genderFilter || brandFilter || categoryFilter || sizeFilter) && (
+          <div className="mb-8 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-sm font-medium text-blue-800 dark:text-blue-300">Filtros activos:</span>
+                {genderFilter && (
+                  <span className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium">
+                    {genderFilter === 'hombre' ? '👨 Hombre' : '👩 Mujer'}
+                  </span>
+                )}
+                {brandFilter && (
+                  <span className="px-3 py-1 bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200 rounded-full text-xs font-medium">
+                    🏷️ {brands.find(b => b.id == brandFilter)?.name || 'Marca'}
+                  </span>
+                )}
+                {categoryFilter && (
+                  <span className="px-3 py-1 bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200 rounded-full text-xs font-medium">
+                    📦 {categories.find(c => c.slug === categoryFilter)?.name || 'Categoría'}
+                  </span>
+                )}
+                {sizeFilter && (
+                  <span className="px-3 py-1 bg-orange-100 dark:bg-orange-800 text-orange-800 dark:text-orange-200 rounded-full text-xs font-medium">
+                    📏 Talla {sizeFilter}
+                  </span>
+                )}
+              </div>
+              <Link
+                href="/"
+                className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+              >
+                Limpiar todos los filtros
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* Grid de productos */}
         <ProductGrid products={products} />
 
         {products.length === 0 && (
           <div className="text-center py-20 bg-white dark:bg-slate-700 rounded-lg shadow-lg border border-gray-200 dark:border-slate-600">
-            <div className="text-6xl mb-4">🤠</div>
+            <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-200 mb-2">
-              No hay productos disponibles
+              No se encontraron productos
             </h3>
-            <p className="text-stone-600 dark:text-slate-300">
-              {sizeFilter
-                ? `No se encontraron productos para la talla "${sizeFilter}"`
+            <p className="text-stone-600 dark:text-slate-300 mb-4">
+              {(genderFilter || brandFilter || categoryFilter || sizeFilter)
+                ? 'No hay productos que coincidan con los filtros seleccionados.'
                 : 'Vuelve pronto para descubrir nuestros nuevos artículos western'
               }
             </p>
+            {(genderFilter || brandFilter || categoryFilter || sizeFilter) && (
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <span>🏠</span>
+                Ver todos los productos
+              </Link>
+            )}
           </div>
         )}
       </main>

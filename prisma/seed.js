@@ -5,6 +5,37 @@ const prisma = new PrismaClient()
 async function main() {
   console.log('🌱 Seeding database with categories and products...')
 
+  // Primero crear marcas
+  const brandData = [
+    {
+      name: 'Western Classic',
+      slug: 'western-classic',
+      description: 'Marca tradicional de productos western de alta calidad'
+    },
+    {
+      name: 'RR Originals',
+      slug: 'rr-originals',
+      description: 'Línea exclusiva de productos western premium'
+    },
+    {
+      name: 'Cowboy Heritage',
+      slug: 'cowboy-heritage',
+      description: 'Productos authentic western con tradición'
+    }
+  ]
+
+  for (const brand of brandData) {
+    await prisma.brand.upsert({
+      where: { slug: brand.slug },
+      create: brand,
+      update: {
+        name: brand.name,
+        description: brand.description
+      }
+    })
+    console.log(`✅ Created/Updated brand: ${brand.name}`)
+  }
+
   // Primero crear categorías
   const categories = [
     {
@@ -97,11 +128,15 @@ async function main() {
 
   console.log('📦 Creating sample products...')
 
-  // Obtener las categorías creadas
+  // Obtener las categorías y marcas creadas
   const vaqueras = await prisma.category.findUnique({ where: { slug: 'botas-vaqueras' } })
   const trabajo = await prisma.category.findUnique({ where: { slug: 'botas-trabajo' } })
   const botines = await prisma.category.findUnique({ where: { slug: 'botines' } })
   const montana = await prisma.category.findUnique({ where: { slug: 'botas-montana' } })
+
+  const westernClassic = await prisma.brand.findUnique({ where: { slug: 'western-classic' } })
+  const rrOriginals = await prisma.brand.findUnique({ where: { slug: 'rr-originals' } })
+  const cowboyHeritage = await prisma.brand.findUnique({ where: { slug: 'cowboy-heritage' } })
 
   const products = [
     {
@@ -111,6 +146,7 @@ async function main() {
       gender: 'hombre',
       category: 'botines',
       categoryId: botines.id,
+      brandId: westernClassic.id,
       imageUrl: 'https://picsum.photos/400/400?random=1'
     },
     {
@@ -120,6 +156,7 @@ async function main() {
       gender: 'unisex',
       category: 'botas-trabajo',
       categoryId: trabajo.id,
+      brandId: rrOriginals.id,
       imageUrl: 'https://picsum.photos/400/400?random=2'
     },
     {
@@ -129,6 +166,7 @@ async function main() {
       gender: 'hombre',
       category: 'botas-vaqueras',
       categoryId: vaqueras.id,
+      brandId: cowboyHeritage.id,
       imageUrl: 'https://picsum.photos/400/400?random=7'
     },
     {
@@ -138,6 +176,7 @@ async function main() {
       gender: 'unisex',
       category: 'botas-montana',
       categoryId: montana.id,
+      brandId: westernClassic.id,
       imageUrl: 'https://picsum.photos/400/400?random=6'
     },
     {
@@ -147,7 +186,18 @@ async function main() {
       gender: 'mujer',
       category: 'botines',
       categoryId: botines.id,
+      brandId: rrOriginals.id,
       imageUrl: 'https://picsum.photos/400/400?random=8'
+    },
+    {
+      name: 'Botas Vaqueras Rosa',
+      description: 'Botas vaqueras especialmente diseñadas para mujer con detalles elegantes en rosa.',
+      price: 189.99,
+      gender: 'mujer',
+      category: 'botas-vaqueras',
+      categoryId: vaqueras.id,
+      brandId: cowboyHeritage.id,
+      imageUrl: 'https://picsum.photos/400/400?random=9'
     }
   ]
 
