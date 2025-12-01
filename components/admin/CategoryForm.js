@@ -8,6 +8,39 @@ export default function CategoryForm({ action, category = null, submitText = "Cr
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [sizes, setSizes] = useState(category?.sizes?.map(s => ({ id: s.id, size: s.size, order: s.order })) || [])
+  const [newSize, setNewSize] = useState('')
+
+  const addSize = () => {
+    if (newSize.trim() && !sizes.find(s => s.size === newSize.trim())) {
+      setSizes([...sizes, { 
+        id: Date.now(), // ID temporal para nuevas tallas
+        size: newSize.trim(), 
+        order: sizes.length 
+      }])
+      setNewSize('')
+    }
+  }
+
+  const removeSize = (index) => {
+    setSizes(sizes.filter((_, i) => i !== index))
+  }
+
+  const moveSizeUp = (index) => {
+    if (index > 0) {
+      const newSizes = [...sizes]
+      ;[newSizes[index - 1], newSizes[index]] = [newSizes[index], newSizes[index - 1]]
+      setSizes(newSizes.map((size, i) => ({ ...size, order: i })))
+    }
+  }
+
+  const moveSizeDown = (index) => {
+    if (index < sizes.length - 1) {
+      const newSizes = [...sizes]
+      ;[newSizes[index], newSizes[index + 1]] = [newSizes[index + 1], newSizes[index]]
+      setSizes(newSizes.map((size, i) => ({ ...size, order: i })))
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -16,6 +49,13 @@ export default function CategoryForm({ action, category = null, submitText = "Cr
     
     try {
       const formData = new FormData(e.target)
+      
+      // Agregar las tallas al FormData
+      sizes.forEach((size, index) => {
+        formData.append(`sizes[${index}][id]`, size.id)
+        formData.append(`sizes[${index}][size]`, size.size)
+        formData.append(`sizes[${index}][order]`, index)
+      })
       
       let result
       if (category) {
@@ -92,65 +132,79 @@ export default function CategoryForm({ action, category = null, submitText = "Cr
         </p>
       </div>
 
-      {/* Sección de configuración adicional */}
+      {/* Gestión de Tallas */}
       <div className="border-t border-gray-200 dark:border-gray-600 pt-6">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Configuración Adicional</h3>
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Tallas de la Categoría</h3>
         
-        <div className="space-y-4">
-          <div>
-            <div className="flex items-center">
-              <input
-                id="hasSizes"
-                name="hasSizes"
-                type="checkbox"
-                defaultChecked={category?.hasSizes || false}
-                className="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 dark:border-gray-600 rounded"
-              />
-              <label htmlFor="hasSizes" className="ml-2 block text-sm text-gray-900 dark:text-gray-200">
-                Esta categoría usa tallas
-              </label>
-            </div>
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              Marcar si los productos de esta categoría necesitan especificar talla
-            </p>
-          </div>
-
-          <div>
-            <div className="flex items-center">
-              <input
-                id="hasColors"
-                name="hasColors"
-                type="checkbox"
-                defaultChecked={category?.hasColors || false}
-                className="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 dark:border-gray-600 rounded"
-              />
-              <label htmlFor="hasColors" className="ml-2 block text-sm text-gray-900 dark:text-gray-200">
-                Esta categoría usa colores
-              </label>
-            </div>
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              Marcar si los productos de esta categoría pueden tener diferentes colores
-            </p>
-          </div>
-
-          <div>
-            <div className="flex items-center">
-              <input
-                id="hasMaterials"
-                name="hasMaterials"
-                type="checkbox"
-                defaultChecked={category?.hasMaterials || false}
-                className="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 dark:border-gray-600 rounded"
-              />
-              <label htmlFor="hasMaterials" className="ml-2 block text-sm text-gray-900 dark:text-gray-200">
-                Esta categoría especifica materiales
-              </label>
-            </div>
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              Marcar si es importante especificar el material (cuero, algodón, etc.)
-            </p>
-          </div>
+        {/* Agregar nueva talla */}
+        <div className="flex gap-2 mb-4">
+          <input
+            type="text"
+            value={newSize}
+            onChange={(e) => setNewSize(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addSize())}
+            placeholder="Ej: S, M, L, XL, 38, 39, 40..."
+            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          />
+          <button
+            type="button"
+            onClick={addSize}
+            className="px-4 py-2 bg-gray-900 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-md font-medium transition-colors duration-200"
+          >
+            Agregar
+          </button>
         </div>
+
+        {/* Lista de tallas */}
+        {sizes.length > 0 && (
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+            <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+              Tallas configuradas ({sizes.length})
+            </h4>
+            <div className="space-y-2">
+              {sizes.map((size, index) => (
+                <div key={size.id} className="flex items-center justify-between bg-white dark:bg-gray-700 p-3 rounded-md shadow-sm">
+                  <span className="font-medium text-gray-900 dark:text-white">
+                    {size.size}
+                  </span>
+                  
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => moveSizeUp(index)}
+                      disabled={index === 0}
+                      className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                      title="Mover arriba"
+                    >
+                      ↑
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => moveSizeDown(index)}
+                      disabled={index === sizes.length - 1}
+                      className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                      title="Mover abajo"
+                    >
+                      ↓
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeSize(index)}
+                      className="p-1 text-red-600 hover:text-red-800"
+                      title="Eliminar talla"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+          Configura las tallas específicas que estarán disponibles para los productos de esta categoría. Si no agregas tallas, los productos de esta categoría no tendrán opciones de talla.
+        </p>
       </div>
 
       <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-600">

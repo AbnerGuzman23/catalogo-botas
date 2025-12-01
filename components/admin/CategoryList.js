@@ -30,6 +30,9 @@ export default function CategoryList({ categories }) {
               Descripción
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              Tallas
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
               Productos
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -58,6 +61,27 @@ export default function CategoryList({ categories }) {
               <td className="px-6 py-4">
                 <div className="text-sm text-gray-900 dark:text-gray-200 max-w-xs truncate">
                   {category.description || 'Sin descripción'}
+                </div>
+              </td>
+              <td className="px-6 py-4">
+                <div className="flex flex-wrap gap-1">
+                  {category.sizes && category.sizes.length > 0 ? (
+                    category.sizes.slice(0, 3).map((size) => (
+                      <span 
+                        key={size.id} 
+                        className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+                      >
+                        {size.size}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs text-gray-500 dark:text-gray-400">Sin tallas</span>
+                  )}
+                  {category.sizes && category.sizes.length > 3 && (
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      +{category.sizes.length - 3} más
+                    </span>
+                  )}
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">

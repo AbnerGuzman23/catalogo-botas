@@ -16,12 +16,20 @@ model Category {
   slug        String   @unique
   description String?
   icon        String?
-  hasSizes    Boolean  @default(false)
-  hasColors   Boolean  @default(false)
-  hasMaterials Boolean @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   products    Product[]
+  sizes       CategorySize[] // Tallas específicas de esta categoría
+}
+
+model CategorySize {
+  id         Int      @id @default(autoincrement())
+  categoryId Int
+  size       String
+  order      Int      @default(0) // Para ordenar las tallas
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  @@unique([categoryId, size]) // No duplicar tallas en la misma categoría
 }
 
 model Brand {

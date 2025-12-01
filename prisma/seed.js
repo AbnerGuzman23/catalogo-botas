@@ -12,36 +12,71 @@ async function main() {
       slug: 'botas-vaqueras',
       description: 'Botas tradicionales de estilo cowboy y western',
       icon: '🤠',
-      hasSizes: true,
-      hasColors: true,
-      hasMaterials: true
+      sizes: {
+        create: [
+          { size: '38', order: 0 },
+          { size: '39', order: 1 },
+          { size: '40', order: 2 },
+          { size: '41', order: 3 },
+          { size: '42', order: 4 },
+          { size: '43', order: 5 },
+          { size: '44', order: 6 },
+          { size: '45', order: 7 }
+        ]
+      }
     },
     {
       name: 'Botas de Trabajo',
       slug: 'botas-trabajo',
       description: 'Botas resistentes para trabajo pesado y seguridad',
       icon: '⚒️',
-      hasSizes: true,
-      hasColors: false,
-      hasMaterials: true
+      sizes: {
+        create: [
+          { size: '39', order: 0 },
+          { size: '40', order: 1 },
+          { size: '41', order: 2 },
+          { size: '42', order: 3 },
+          { size: '43', order: 4 },
+          { size: '44', order: 5 },
+          { size: '45', order: 6 }
+        ]
+      }
     },
     {
       name: 'Botines',
       slug: 'botines',
       description: 'Botines elegantes para uso casual y formal',
       icon: '👢',
-      hasSizes: true,
-      hasColors: true,
-      hasMaterials: true
+      sizes: {
+        create: [
+          { size: 'S', order: 0 },
+          { size: 'M', order: 1 },
+          { size: 'L', order: 2 },
+          { size: 'XL', order: 3 },
+          { size: '36', order: 4 },
+          { size: '37', order: 5 },
+          { size: '38', order: 6 },
+          { size: '39', order: 7 },
+          { size: '40', order: 8 }
+        ]
+      }
     },
     {
       name: 'Botas de Montaña',
       slug: 'botas-montana',
       description: 'Botas especializadas para actividades outdoor',
       icon: '🏔️',
-      hasSizes: true,
-      hasColors: false,
-      hasMaterials: true
+      sizes: {
+        create: [
+          { size: '40', order: 0 },
+          { size: '41', order: 1 },
+          { size: '42', order: 2 },
+          { size: '43', order: 3 },
+          { size: '44', order: 4 },
+          { size: '45', order: 5 },
+          { size: '46', order: 6 }
+        ]
+      }
     }
   ]
 
@@ -49,7 +84,11 @@ async function main() {
     await prisma.category.upsert({
       where: { slug: categoryData.slug },
       create: categoryData,
-      update: categoryData
+      update: {
+        name: categoryData.name,
+        description: categoryData.description,
+        icon: categoryData.icon
+      }
     })
     console.log(`✅ Created/Updated category: ${categoryData.name}`)
   }
