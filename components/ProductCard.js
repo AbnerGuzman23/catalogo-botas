@@ -82,6 +82,24 @@ export default function ProductCard({ product }) {
           {product.description}
         </p>
 
+        {/* Género del producto */}
+        {product.gender && (
+          <div className="flex items-center mb-3">
+            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+              product.gender === 'hombre' 
+                ? 'bg-blue-100 text-blue-800' 
+                : product.gender === 'mujer'
+                ? 'bg-pink-100 text-pink-800'
+                : 'bg-gray-100 text-gray-800'
+            }`}>
+              {product.gender === 'hombre' && '👨 '}
+              {product.gender === 'mujer' && '👩 '}
+              {product.gender === 'unisex' && '👥 '}
+              {product.gender === 'hombre' ? 'Hombre' : product.gender === 'mujer' ? 'Mujer' : 'Unisex'}
+            </span>
+          </div>
+        )}
+
         <div className="flex items-center justify-between mb-3 sm:mb-4">
           <div className="flex items-center space-x-2">
             <span className="text-lg sm:text-xl lg:text-2xl font-bold text-theme-primary">

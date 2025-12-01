@@ -108,6 +108,7 @@ async function main() {
       name: 'Botas Chelsea de Cuero Negro',
       description: 'Elegantes botas Chelsea de cuero genuino con banda elástica lateral. Perfectas para looks casuales y formales.',
       price: 149.99,
+      gender: 'hombre',
       category: 'botines',
       categoryId: botines.id,
       imageUrl: 'https://picsum.photos/400/400?random=1'
@@ -116,6 +117,7 @@ async function main() {
       name: 'Botas de Trabajo de Seguridad',
       description: 'Botas robustas con puntera de acero, ideales para trabajos pesados. Suela antideslizante y resistente al agua.',
       price: 89.99,
+      gender: 'unisex',
       category: 'botas-trabajo',
       categoryId: trabajo.id,
       imageUrl: 'https://picsum.photos/400/400?random=2'
@@ -124,6 +126,7 @@ async function main() {
       name: 'Botas Cowboy de Cuero',
       description: 'Auténticas botas estilo cowboy de cuero genuino. Diseño clásico americano con costuras decorativas.',
       price: 249.99,
+      gender: 'hombre',
       category: 'botas-vaqueras',
       categoryId: vaqueras.id,
       imageUrl: 'https://picsum.photos/400/400?random=7'
@@ -132,6 +135,7 @@ async function main() {
       name: 'Botas de Montaña Impermeables',
       description: 'Botas de senderismo impermeables con excelente tracción. Perfectas para caminatas y actividades de montaña.',
       price: 179.99,
+      gender: 'unisex',
       category: 'botas-montana',
       categoryId: montana.id,
       imageUrl: 'https://picsum.photos/400/400?random=6'
@@ -140,6 +144,7 @@ async function main() {
       name: 'Botines Urbanos Negros',
       description: 'Botines modernos de cuero negro con cierre lateral. Ideales para looks urbanos y casuales.',
       price: 94.99,
+      gender: 'mujer',
       category: 'botines',
       categoryId: botines.id,
       imageUrl: 'https://picsum.photos/400/400?random=8'

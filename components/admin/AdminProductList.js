@@ -42,6 +42,9 @@ export default function AdminProductList({ products }) {
                 Precio
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Género
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Talla
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -86,6 +89,20 @@ export default function AdminProductList({ products }) {
                   <div className="text-sm text-gray-900 font-medium">
                     {formatPrice(product.price)}
                   </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                    product.gender === 'hombre' 
+                      ? 'bg-blue-100 text-blue-800' 
+                      : product.gender === 'mujer'
+                      ? 'bg-pink-100 text-pink-800'
+                      : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {product.gender === 'hombre' && '👨 '}
+                    {product.gender === 'mujer' && '👩 '}
+                    {product.gender === 'unisex' && '👥 '}
+                    {product.gender === 'hombre' ? 'Hombre' : product.gender === 'mujer' ? 'Mujer' : 'Unisex'}
+                  </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex flex-wrap gap-1">

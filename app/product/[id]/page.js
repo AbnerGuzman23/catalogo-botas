@@ -143,6 +143,18 @@ export default async function ProductDetail(props) {
                       </div>
                     </div>
                     
+                    {product.gender && (
+                      <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                        <div className="text-sm font-medium text-gray-600 mb-1">Género</div>
+                        <div className="text-lg font-bold text-black flex items-center gap-2">
+                          {product.gender === 'hombre' && '👨'}
+                          {product.gender === 'mujer' && '👩'}
+                          {product.gender === 'unisex' && '👥'}
+                          {product.gender === 'hombre' ? 'Hombre' : product.gender === 'mujer' ? 'Mujer' : 'Unisex'}
+                        </div>
+                      </div>
+                    )}
+                    
                     <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
                       <div className="text-sm font-medium text-gray-600 mb-1">Tallas Disponibles</div>
                       <div className="flex flex-wrap gap-1">

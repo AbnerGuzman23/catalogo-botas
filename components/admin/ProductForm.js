@@ -54,7 +54,7 @@ export default function ProductForm({ action, product = null, categories = [], b
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Precio (Q)
@@ -72,6 +72,24 @@ export default function ProductForm({ action, product = null, categories = [], b
           />
         </div>
 
+        <div>
+          <label htmlFor="gender" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Género
+          </label>
+          <select
+            id="gender"
+            name="gender"
+            defaultValue={product?.gender || 'unisex'}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          >
+            <option value="hombre">👨 Hombre</option>
+            <option value="mujer">👩 Mujer</option>
+            <option value="unisex">👥 Unisex</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Categoría
