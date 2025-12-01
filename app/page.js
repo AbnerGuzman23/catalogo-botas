@@ -127,8 +127,147 @@ export default async function Home(props) {
           </div>
         )}
 
-        {/* Grid de productos */}
-        {hasActiveFilters ? (
+        {/* Contenido principal cuando no hay filtros */}
+        {!hasActiveFilters ? (
+          <div className="space-y-12">
+            {/* Hero Section */}
+            <div className="text-center py-12 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl">
+              <div className="text-6xl mb-6">🤠</div>
+              <h2 className="text-3xl font-light text-gray-900 dark:text-white mb-4">
+                Bienvenido a RR BOOTS
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Descubre nuestra colección de artículos western de calidad premium. 
+                Usa el botón de filtros en la esquina superior derecha para explorar por género, marca y categoría.
+              </p>
+            </div>
+
+            {/* Productos por Marca */}
+            {brands.filter(brand => {
+              // Solo mostrar marcas que tengan productos
+              const brandProducts = allProducts.filter(p => p.brandId === brand.id)
+              return brandProducts.length > 0
+            }).map(brand => {
+              const brandProducts = allProducts
+                .filter(p => p.brandId === brand.id)
+                .slice(0, 4) // Máximo 4 productos por marca
+
+              return (
+                <div key={brand.id} className="space-y-6">
+                  {/* Header de la marca */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-2xl font-light text-gray-900 dark:text-white">
+                        {brand.name}
+                      </h3>
+                      {brand.description && (
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                          {brand.description}
+                        </p>
+                      )}
+                    </div>
+                    <Link
+                      href={`/?brand=${brand.id}`}
+                      className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      Ver todos →
+                    </Link>
+                  </div>
+
+                  {/* Grid de productos */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {brandProducts.map(product => (
+                      <Link
+                        key={product.id}
+                        href={`/product/${product.id}`}
+                        className="group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-all duration-300"
+                      >
+                        {/* Imagen */}
+                        <div className="aspect-square bg-gray-100 dark:bg-gray-700 relative overflow-hidden">
+                          {product.imageUrl ? (
+                            <Image
+                              src={product.imageUrl}
+                              alt={product.name}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          ) : (
+                            <div className="flex items-center justify-center h-full text-gray-400">
+                              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                          )}
+                          
+                          {/* Badge de género */}
+                          <div className="absolute top-3 left-3">
+                            <span className="px-2 py-1 text-xs font-medium bg-black/70 text-white rounded-full backdrop-blur-sm">
+                              {product.gender === 'hombre' ? 'Hombre' : product.gender === 'mujer' ? 'Mujer' : 'Unisex'}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Información del producto */}
+                        <div className="p-4">
+                          <h4 className="font-medium text-gray-900 dark:text-white line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            {product.name}
+                          </h4>
+                          
+                          {product.categoryRel && (
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                              {product.categoryRel.name}
+                            </p>
+                          )}
+                          
+                          {product.description && (
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+                              {product.description}
+                            </p>
+                          )}
+                          
+                          <div className="flex items-center justify-between mt-3">
+                            <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                              ${product.price}
+                            </span>
+                            <span className="text-xs text-blue-600 dark:text-blue-400 font-medium group-hover:underline">
+                              Ver detalles
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Separador */}
+                  {brand !== brands[brands.length - 1] && (
+                    <hr className="border-gray-200 dark:border-gray-700" />
+                  )}
+                </div>
+              )
+            })}
+
+            {/* Call to action */}
+            <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-2xl">
+              <h3 className="text-xl font-light text-gray-900 dark:text-white mb-4">
+                ¿Buscas algo específico?
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
+                Utiliza nuestros filtros para encontrar exactamente lo que necesitas
+              </p>
+              <div className="flex justify-center">
+                <div className="animate-bounce">
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 11l3-3m0 0l3 3m-3-3v8" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                Botón de filtros en la esquina superior derecha
+              </p>
+            </div>
+          </div>
+        ) : (
+          // Contenido cuando hay filtros activos
           products.length > 0 ? (
             <ProductGrid products={products} />
           ) : (
@@ -148,23 +287,6 @@ export default async function Home(props) {
               </Link>
             </div>
           )
-        ) : (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">🤠</div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-200 mb-2">
-              Bienvenido a RR BOOTS
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Usa el botón de filtros en la esquina superior derecha para explorar nuestra colección
-            </p>
-            <div className="flex justify-center">
-              <div className="animate-bounce">
-                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 11l3-3m0 0l3 3m-3-3v8" />
-                </svg>
-              </div>
-            </div>
-          </div>
         )}
       </main>
 
