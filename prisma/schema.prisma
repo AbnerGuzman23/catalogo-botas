@@ -24,6 +24,18 @@ model Category {
   products    Product[]
 }
 
+model Brand {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  logoUrl     String?
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  products    Product[]
+}
+
 model Product {
   id          Int            @id @default(autoincrement())
   name        String
@@ -32,6 +44,8 @@ model Product {
   category    String         @default("botas") // Mantener temporalmente
   categoryId  Int?           // Hacer opcional temporalmente
   categoryRel Category?      @relation(fields: [categoryId], references: [id])
+  brandId     Int?           // Relación con marca
+  brandRel    Brand?         @relation(fields: [brandId], references: [id])
   imageUrl    String?
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt

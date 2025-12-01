@@ -23,6 +23,12 @@ export default function AdminNavbar() {
                 Categorías
               </Link>
               <Link 
+                href="/admin/brands"
+                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium"
+              >
+                Marcas
+              </Link>
+              <Link 
                 href="/admin/sales"
                 className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium"
               >

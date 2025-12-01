@@ -1,5 +1,6 @@
 import { updateProduct, getProductById } from '@/lib/actions'
 import { getCategories } from '@/lib/category-actions'
+import { getBrands } from '@/lib/brand-actions'
 import { isAdminAuthenticated } from '@/lib/auth'
 import { redirect, notFound } from 'next/navigation'
 import AdminNavbar from '@/components/admin/AdminNavbar'
@@ -17,8 +18,9 @@ export default async function EditProduct(props) {
     notFound()
   }
 
-  // Obtener categorías dinámicas de la base de datos
+  // Obtener categorías y marcas dinámicas de la base de datos
   const categories = await getCategories()
+  const brands = await getBrands()
 
   const updateProductWithId = updateProduct.bind(null, params.id)
 
@@ -33,7 +35,7 @@ export default async function EditProduct(props) {
         </div>
 
         <div className="bg-white dark:bg-gray-800 shadow-sm rounded-lg">
-          <ProductForm action={updateProductWithId} product={product} categories={categories} />
+          <ProductForm action={updateProductWithId} product={product} categories={categories} brands={brands} />
         </div>
       </div>
     </div>

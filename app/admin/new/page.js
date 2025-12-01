@@ -1,5 +1,6 @@
 import { createProduct } from '@/lib/actions'
 import { getCategories } from '@/lib/category-actions'
+import { getBrands } from '@/lib/brand-actions'
 import { isAdminAuthenticated } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import AdminNavbar from '@/components/admin/AdminNavbar'
@@ -13,8 +14,9 @@ export default async function NewProductPage() {
     redirect('/admin/login')
   }
 
-  // Obtener categorías dinámicas de la base de datos
+  // Obtener categorías y marcas dinámicas de la base de datos
   const categories = await getCategories()
+  const brands = await getBrands()
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -27,7 +29,7 @@ export default async function NewProductPage() {
         </div>
 
         <div className="bg-white dark:bg-gray-800 shadow-sm rounded-lg">
-          <ProductForm action={createProduct} categories={categories} />
+          <ProductForm action={createProduct} categories={categories} brands={brands} />
         </div>
       </div>
     </div>

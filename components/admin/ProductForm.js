@@ -5,7 +5,7 @@ import Link from 'next/link'
 import SizeInventoryManager from './SizeInventoryManager'
 import ImageUpload from './ImageUpload'
 
-export default function ProductForm({ action, product = null, categories = [] }) {
+export default function ProductForm({ action, product = null, categories = [], brands = [] }) {
   const isEditing = !!product
   const [sizeInventory, setSizeInventory] = useState(product?.inventory || [])
   const [imageUrl, setImageUrl] = useState(product?.imageUrl || null)
@@ -54,7 +54,7 @@ export default function ProductForm({ action, product = null, categories = [] })
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div>
           <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Precio (Q)
@@ -87,6 +87,25 @@ export default function ProductForm({ action, product = null, categories = [] })
             {categories.map((category) => (
               <option key={category.id} value={category.slug}>
                 {category.icon && `${category.icon} `}{category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="brandId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Marca
+          </label>
+          <select
+            id="brandId"
+            name="brandId"
+            defaultValue={product?.brandId || ''}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          >
+            <option value="">Sin marca específica</option>
+            {brands.map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
               </option>
             ))}
           </select>
