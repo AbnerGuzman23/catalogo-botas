@@ -107,7 +107,7 @@ function HomeContent() {
               </Link>
             </div>
 
-            {/* Social Media Links */}
+            {/* Social Media Links and Filter Button */}
             <div className="flex items-center space-x-4">
               <a
                 href="https://wa.me/5218261234567"
@@ -156,6 +156,25 @@ function HomeContent() {
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
               </a>
+
+              {/* Separador visual */}
+              <div className="h-6 w-px bg-black"></div>
+
+              {/* Botón de Filtrar integrado */}
+              <button
+                onClick={() => {
+                  if (window.openFilterPanel) {
+                    window.openFilterPanel()
+                  }
+                }}
+                className="flex items-center gap-2 px-3 py-2 text-black hover:bg-black hover:text-white border border-black transition-colors"
+                title="Filtrar productos"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" />
+                </svg>
+                <span className="hidden sm:inline text-sm font-medium">Filtrar</span>
+              </button>
             </div>
           </div>
         </div>
@@ -192,8 +211,9 @@ function HomeContent() {
               
               <button
                 onClick={() => {
-                  // Open filter panel
-                  document.querySelector('[data-filter-button]')?.click()
+                  if (window.openFilterPanel) {
+                    window.openFilterPanel()
+                  }
                 }}
                 className="px-8 py-3 bg-transparent text-white font-semibold border border-white hover:bg-white hover:text-black transition-all duration-300"
               >

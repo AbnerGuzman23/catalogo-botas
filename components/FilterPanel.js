@@ -11,6 +11,17 @@ export default function FilterPanel({ brands, categories, products }) {
   const [selectedBrand, setSelectedBrand] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
 
+  // Función para abrir el panel desde fuera del componente
+  const openPanel = () => setIsOpen(true)
+  
+  // Exponer la función globalmente para que pueda ser llamada desde el navbar
+  useEffect(() => {
+    window.openFilterPanel = openPanel
+    return () => {
+      delete window.openFilterPanel
+    }
+  }, [])
+
   // Inicializar filtros desde URL
   useEffect(() => {
     setSelectedGender(searchParams.get('gender') || '')
@@ -101,11 +112,11 @@ export default function FilterPanel({ brands, categories, products }) {
 
   return (
     <>
-      {/* Botón Flotante */}
+      {/* Botón Flotante - Oculto ahora que está integrado en el navbar */}
       <button
         onClick={() => setIsOpen(true)}
         data-filter-button
-        className="fixed top-4 right-4 z-40 bg-black text-white p-3 hover:bg-white hover:text-black border border-black transition-all duration-200 flex items-center gap-2"
+        className="hidden"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" />
