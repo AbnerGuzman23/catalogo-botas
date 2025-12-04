@@ -94,14 +94,14 @@ function HomeContent() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Bar */}
-      <nav className="bg-white border-b border-black sticky top-0 z-50">
+      <nav className="bg-black border-b border-white sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center">
                 <span className="text-xl mr-2">🤠</span>
-                <span className="text-xl font-bold tracking-wider text-black">
+                <span className="text-xl font-bold tracking-wider text-white">
                   {siteConfig.siteName}
                 </span>
               </Link>
@@ -113,7 +113,7 @@ function HomeContent() {
                 href="https://wa.me/5218261234567"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black hover:bg-black hover:text-white p-2 transition-colors"
+                className="text-white hover:bg-white hover:text-black p-2 transition-colors"
                 title="WhatsApp"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -125,7 +125,7 @@ function HomeContent() {
                 href="https://instagram.com/rrboots"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black hover:bg-black hover:text-white p-2 transition-colors"
+                className="text-white hover:bg-white hover:text-black p-2 transition-colors"
                 title="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -137,7 +137,7 @@ function HomeContent() {
                 href="https://tiktok.com/@rrboots"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black hover:bg-black hover:text-white p-2 transition-colors"
+                className="text-white hover:bg-white hover:text-black p-2 transition-colors"
                 title="TikTok"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ function HomeContent() {
                 href="https://facebook.com/rrboots"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black hover:bg-black hover:text-white p-2 transition-colors"
+                className="text-white hover:bg-white hover:text-black p-2 transition-colors"
                 title="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -158,7 +158,7 @@ function HomeContent() {
               </a>
 
               {/* Separador visual */}
-              <div className="h-6 w-px bg-black"></div>
+              <div className="h-6 w-px bg-white"></div>
 
               {/* Botón de Filtrar integrado */}
               <button
@@ -167,7 +167,7 @@ function HomeContent() {
                     window.openFilterPanel()
                   }
                 }}
-                className="flex items-center gap-2 px-3 py-2 text-black hover:bg-black hover:text-white border border-black transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-white hover:bg-white hover:text-black border border-white transition-colors"
                 title="Filtrar productos"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
