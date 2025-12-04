@@ -100,7 +100,15 @@ function HomeContent() {
             {/* Logo */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center">
-                <span className="text-xl mr-2">🤠</span>
+                {siteConfig.logoUrl ? (
+                  <img 
+                    src={siteConfig.logoUrl} 
+                    alt={siteConfig.siteName}
+                    className="h-8 w-8 mr-2 object-contain"
+                  />
+                ) : (
+                  <span className="text-xl mr-2">🤠</span>
+                )}
                 <span className="text-xl font-bold tracking-wider text-white">
                   {siteConfig.siteName}
                 </span>
@@ -189,7 +197,15 @@ function HomeContent() {
       >
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white px-4">
-            <div className="text-6xl mb-6">🤠</div>
+            {siteConfig.logoUrl ? (
+              <img 
+                src={siteConfig.logoUrl} 
+                alt={siteConfig.siteName}
+                className="h-16 w-16 mx-auto mb-6 object-contain"
+              />
+            ) : (
+              <div className="text-6xl mb-6">🤠</div>
+            )}
             <h1 className="text-5xl md:text-6xl font-bold mb-4 tracking-wider">
               {siteConfig.siteName}
             </h1>
