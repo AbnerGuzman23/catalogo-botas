@@ -142,7 +142,7 @@ async function main() {
     {
       name: 'Botas Chelsea de Cuero Negro',
       description: 'Elegantes botas Chelsea de cuero genuino con banda elástica lateral. Perfectas para looks casuales y formales.',
-      price: 1162.50,
+      price: 149.99,
       gender: 'hombre',
       category: 'botines',
       categoryId: botines.id,
@@ -152,7 +152,7 @@ async function main() {
     {
       name: 'Botas de Trabajo de Seguridad',
       description: 'Botas robustas con puntera de acero, ideales para trabajos pesados. Suela antideslizante y resistente al agua.',
-      price: 697.50,
+      price: 89.99,
       gender: 'unisex',
       category: 'botas-trabajo',
       categoryId: trabajo.id,
@@ -162,7 +162,7 @@ async function main() {
     {
       name: 'Botas Cowboy de Cuero',
       description: 'Auténticas botas estilo cowboy de cuero genuino. Diseño clásico americano con costuras decorativas.',
-      price: 1937.50,
+      price: 249.99,
       gender: 'hombre',
       category: 'botas-vaqueras',
       categoryId: vaqueras.id,
@@ -172,7 +172,7 @@ async function main() {
     {
       name: 'Botas de Montaña Impermeables',
       description: 'Botas de senderismo impermeables con excelente tracción. Perfectas para caminatas y actividades de montaña.',
-      price: 1395.00,
+      price: 179.99,
       gender: 'unisex',
       category: 'botas-montana',
       categoryId: montana.id,
@@ -182,7 +182,7 @@ async function main() {
     {
       name: 'Botines Urbanos Negros',
       description: 'Botines modernos de cuero negro con cierre lateral. Ideales para looks urbanos y casuales.',
-      price: 736.25,
+      price: 94.99,
       gender: 'mujer',
       category: 'botines',
       categoryId: botines.id,
@@ -192,7 +192,7 @@ async function main() {
     {
       name: 'Botas Vaqueras Rosa',
       description: 'Botas vaqueras especialmente diseñadas para mujer con detalles elegantes en rosa.',
-      price: 1472.50,
+      price: 189.99,
       gender: 'mujer',
       category: 'botas-vaqueras',
       categoryId: vaqueras.id,
@@ -203,7 +203,7 @@ async function main() {
     {
       name: 'Botas de Cuero Marrón Clásicas',
       description: 'Botas de cuero marrón tradicionales con diseño clásico western. Perfectas para uso diario.',
-      price: 1550.00,
+      price: 199.99,
       gender: 'hombre',
       category: 'botas-vaqueras',
       categoryId: vaqueras.id,
@@ -213,7 +213,7 @@ async function main() {
     {
       name: 'Botines de Mujer Elegantes',
       description: 'Botines de tacón medio con acabado premium. Ideales para ocasiones especiales.',
-      price: 1007.50,
+      price: 129.99,
       gender: 'mujer',
       category: 'botines',
       categoryId: botines.id,
@@ -223,7 +223,7 @@ async function main() {
     {
       name: 'Botas de Trabajo Industriales',
       description: 'Botas de trabajo reforzadas con protección química y antideslizante para industria pesada.',
-      price: 930.00,
+      price: 119.99,
       gender: 'unisex',
       category: 'botas-trabajo',
       categoryId: trabajo.id,
@@ -234,7 +234,7 @@ async function main() {
     {
       name: 'Botas Vaqueras Premium',
       description: 'Línea premium de botas vaqueras con detalles artesanales y cuero de primera calidad.',
-      price: 2325.00,
+      price: 299.99,
       gender: 'hombre',
       category: 'botas-vaqueras',
       categoryId: vaqueras.id,
@@ -244,7 +244,7 @@ async function main() {
     {
       name: 'Botines de Diseño Moderno',
       description: 'Botines con diseño contemporáneo y materiales innovadores. Comodidad y estilo únicos.',
-      price: 1240.00,
+      price: 159.99,
       gender: 'mujer',
       category: 'botines',
       categoryId: botines.id,
@@ -254,7 +254,7 @@ async function main() {
     {
       name: 'Botas de Montaña Extremas',
       description: 'Botas técnicas para montañismo extremo. Resistentes a temperaturas bajo cero.',
-      price: 2015.00,
+      price: 259.99,
       gender: 'unisex',
       category: 'botas-montana',
       categoryId: montana.id,
@@ -265,7 +265,7 @@ async function main() {
     {
       name: 'Botas Cowboy Tradicionales',
       description: 'Botas cowboy con diseño tradicional texano. Auténtico estilo del viejo oeste.',
-      price: 1705.00,
+      price: 219.99,
       gender: 'hombre',
       category: 'botas-vaqueras',
       categoryId: vaqueras.id,
@@ -275,7 +275,7 @@ async function main() {
     {
       name: 'Botines Western para Mujer',
       description: 'Botines estilo western especialmente diseñados para mujer con detalles únicos.',
-      price: 1317.50,
+      price: 169.99,
       gender: 'mujer',
       category: 'botines',
       categoryId: botines.id,
@@ -285,7 +285,7 @@ async function main() {
     {
       name: 'Botas de Trabajo Ranchero',
       description: 'Botas robustas para trabajo de rancho y ganadería. Resistentes y cómodas.',
-      price: 1085.00,
+      price: 139.99,
       gender: 'unisex',
       category: 'botas-trabajo',
       categoryId: trabajo.id,
@@ -295,7 +295,7 @@ async function main() {
     {
       name: 'Botas de Senderismo Heritage',
       description: 'Botas de montaña con estilo heritage. Combina tradición con tecnología moderna.',
-      price: 1472.50,
+      price: 189.99,
       gender: 'unisex',
       category: 'botas-montana',
       categoryId: montana.id,
@@ -306,7 +306,7 @@ async function main() {
     {
       name: 'Botas Vaqueras Texanas',
       description: 'Botas vaqueras auténticas de Texas con punta cuadrada y tacón bajo.',
-      price: 1395.00,
+      price: 179.99,
       gender: 'hombre',
       category: 'botas-vaqueras',
       categoryId: vaqueras.id,
@@ -316,7 +316,7 @@ async function main() {
     {
       name: 'Botines Casual Mujer',
       description: 'Botines casuales perfectos para el día a día. Combina comodidad y estilo.',
-      price: 697.50,
+      price: 89.99,
       gender: 'mujer',
       category: 'botines',
       categoryId: botines.id,
@@ -326,7 +326,7 @@ async function main() {
     {
       name: 'Botas de Trabajo Electricista',
       description: 'Botas especializadas para electricistas con protección dieléctrica y suela aislante.',
-      price: 1162.50,
+      price: 149.99,
       gender: 'unisex',
       category: 'botas-trabajo',
       categoryId: trabajo.id,
