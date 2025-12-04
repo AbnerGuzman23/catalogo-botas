@@ -1,4 +1,6 @@
-import { Suspense } from 'react'
+'use client'
+
+import { Suspense, useEffect, useState } from 'react'
 import { getProducts, getAvailableSizes, getSiteConfig } from '@/lib/actions'
 import { getCategories } from '@/lib/category-actions'
 import { getBrands } from '@/lib/brand-actions'
@@ -7,6 +9,7 @@ import SizeFilter from '@/components/SizeFilter'
 import FilterPanel from '@/components/FilterPanel'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
 
 function SizeFilterWrapper({ sizes, currentSize }) {
   return (
@@ -17,32 +20,84 @@ function SizeFilterWrapper({ sizes, currentSize }) {
 }
 
 // Función para generar metadata dinámica
-export async function generateMetadata(props) {
-  // Mantener título fijo para evitar confusión
+export async function generateMetadata() {
   return {
     title: 'RR BOOTS',
     description: 'Catálogo de artículos western'
   }
 }
 
-export default async function Home(props) {
-  const searchParams = await props.searchParams
-  const sizeFilter = searchParams?.size || null
-  const categoryFilter = searchParams?.category || null
-  const genderFilter = searchParams?.gender || null
-  const brandFilter = searchParams?.brand || null
+export default function Home() {
+  const searchParams = useSearchParams()
+  const [products, setProducts] = useState([])
+  const [allProducts, setAllProducts] = useState([])
+  const [availableSizes, setAvailableSizes] = useState([])
+  const [categories, setCategories] = useState([])
+  const [brands, setBrands] = useState([])
+  const [siteConfig, setSiteConfig] = useState({
+    siteName: 'RR BOOTS',
+    siteDescription: 'Artículos Western de Calidad Premium',
+    footerAbout: '',
+    footerProducts: '',
+    footerServices: ''
+  })
+  const [loading, setLoading] = useState(true)
+
+  const sizeFilter = searchParams.get('size') || null
+  const categoryFilter = searchParams.get('category') || null
+  const genderFilter = searchParams.get('gender') || null
+  const brandFilter = searchParams.get('brand') || null
   
   // Limpiar categoryFilter si está vacío
   const cleanCategoryFilter = categoryFilter && categoryFilter.trim() !== '' ? categoryFilter : null
-  
-  const products = await getProducts(sizeFilter, cleanCategoryFilter, genderFilter, brandFilter)
-  const allProducts = await getProducts() // Para el panel de filtros
-  const availableSizes = await getAvailableSizes()
-  const categories = await getCategories()
-  const brands = await getBrands()
-  const siteConfig = await getSiteConfig()
-
   const hasActiveFilters = genderFilter || brandFilter || categoryFilter || sizeFilter
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setLoading(true)
+        const [
+          productsData,
+          allProductsData,
+          sizesData,
+          categoriesData,
+          brandsData,
+          configData
+        ] = await Promise.all([
+          getProducts(sizeFilter, cleanCategoryFilter, genderFilter, brandFilter),
+          getProducts(),
+          getAvailableSizes(),
+          getCategories(),
+          getBrands(),
+          getSiteConfig()
+        ])
+
+        setProducts(productsData)
+        setAllProducts(allProductsData)
+        setAvailableSizes(sizesData)
+        setCategories(categoriesData)
+        setBrands(brandsData)
+        setSiteConfig(configData)
+      } catch (error) {
+        console.error('Error loading data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadData()
+  }, [sizeFilter, cleanCategoryFilter, genderFilter, brandFilter])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4">🤠</div>
+          <p className="text-black">Cargando...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-white">
