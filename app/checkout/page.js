@@ -155,12 +155,6 @@ export default function CheckoutPage() {
             El inventario ha sido actualizado automáticamente.
           </p>
           <div className="space-y-3">
-            <button
-              onClick={() => sendWhatsAppMessage(customerData, items, getTotalPrice(), saleId)}
-              className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors mb-3"
-            >
-              📱 Enviar por WhatsApp
-            </button>
             <Link
               href="/"
               className="block bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors text-center"
