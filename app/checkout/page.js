@@ -37,17 +37,17 @@ export default function CheckoutPage() {
   }
 
   const generateWhatsAppMessage = (customerData, items, total, saleId) => {
-    let message = `🤠 *NUEVO PEDIDO - RR BOOTS* 🥾\n\n`
+    let message = `** NUEVO PEDIDO - RR BOOTS **\n\n`
     
     if (customerData.name || customerData.phone || customerData.email) {
-      message += `👤 *DATOS DEL CLIENTE:*\n`
+      message += `** DATOS DEL CLIENTE: **\n`
       if (customerData.name) message += `• Nombre: ${customerData.name}\n`
       if (customerData.phone) message += `• Teléfono: ${customerData.phone}\n`
       if (customerData.email) message += `• Email: ${customerData.email}\n`
       message += `\n`
     }
     
-    message += `📦 *PRODUCTOS SOLICITADOS:*\n`
+    message += `** PRODUCTOS SOLICITADOS: **\n`
     
     items.forEach((item, index) => {
       message += `\n${index + 1}. *${item.productName}*\n`
@@ -57,8 +57,8 @@ export default function CheckoutPage() {
       message += `   • Subtotal: ${formatPrice(item.price * item.quantity)}\n`
     })
     
-    message += `\n💰 *TOTAL DEL PEDIDO: ${formatPrice(total)}*\n`
-    message += `\n🕐 Fecha del pedido: ${new Date().toLocaleString('es-ES')}`
+    message += `\n** TOTAL DEL PEDIDO: ${formatPrice(total)} **\n`
+    message += `\nFecha del pedido: ${new Date().toLocaleString('es-ES')}`
     
     return encodeURIComponent(message)
   }
