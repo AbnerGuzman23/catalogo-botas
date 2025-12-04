@@ -5,6 +5,10 @@ import { isAdminAuthenticated } from '@/lib/auth'
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
 
+// Configurar como página dinámica para evitar errores de renderizado estático
+export const dynamic = 'force-dynamic'
+export const revalidate = 0 // Desactivar cache completamente
+
 export async function generateMetadata({ params }) {
   const brand = await getBrandById(params.id)
   

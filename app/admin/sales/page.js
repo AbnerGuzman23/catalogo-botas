@@ -4,6 +4,10 @@ import { redirect } from 'next/navigation'
 import AdminNavbar from '@/components/admin/AdminNavbar'
 import Link from 'next/link'
 
+// Configurar como página dinámica para evitar errores de renderizado estático
+export const dynamic = 'force-dynamic'
+export const revalidate = 0 // Desactivar cache completamente
+
 export default async function SalesPage() {
   if (!(await isAdminAuthenticated())) {
     redirect('/admin/login')

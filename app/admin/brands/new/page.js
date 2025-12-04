@@ -4,6 +4,10 @@ import { isAdminAuthenticated } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 
+// Configurar como página dinámica para evitar errores de renderizado estático
+export const dynamic = 'force-dynamic'
+export const revalidate = 0 // Desactivar cache completamente
+
 export const metadata = {
   title: 'Nueva Marca - RR BOOTS Admin',
   description: 'Crear nueva marca'

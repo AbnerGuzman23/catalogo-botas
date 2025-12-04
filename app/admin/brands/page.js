@@ -5,6 +5,10 @@ import Link from 'next/link'
 import BrandList from '@/components/admin/BrandList'
 import AdminNavbar from '@/components/admin/AdminNavbar'
 
+// Configurar como página dinámica para evitar errores de renderizado estático
+export const dynamic = 'force-dynamic'
+export const revalidate = 0 // Desactivar cache completamente
+
 export const metadata = {
   title: 'Gestión de Marcas - RR BOOTS Admin',
   description: 'Administra las marcas de productos'

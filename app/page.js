@@ -11,7 +11,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams()
   const [products, setProducts] = useState([])
   const [allProducts, setAllProducts] = useState([])
@@ -74,7 +74,7 @@ export default function Home() {
 
   function SizeFilterWrapper({ sizes, currentSize }) {
     return (
-      <Suspense fallback={<div className="bg-white border border-black p-6 h-12 animate-pulse"></div>}>
+      <Suspense fallback={<div className="bg-white border border-black p-3 h-10 w-40 animate-pulse"></div>}>
         <SizeFilter sizes={sizes} currentSize={currentSize} />
       </Suspense>
     )
@@ -453,5 +453,22 @@ export default function Home() {
         </div>
       </footer>
     </div>
+  )
+}
+
+export default function Home() {
+  return (
+    <Suspense 
+      fallback={
+        <div className="min-h-screen bg-white flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-4xl mb-4">🤠</div>
+            <p className="text-black">Cargando...</p>
+          </div>
+        </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   )
 }
