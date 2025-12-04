@@ -30,10 +30,7 @@ export default function CheckoutPage() {
   }, [])
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-GT', {
-      style: 'currency',
-      currency: 'GTQ'
-    }).format(price)
+    return `Q ${price.toFixed(2)}`
   }
 
   const generateWhatsAppMessage = (customerData, items, total, saleId) => {

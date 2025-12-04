@@ -4,10 +4,7 @@ import QuickAddToCart from './QuickAddToCart'
 
 export default function ProductCard({ product }) {
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-GT', {
-      style: 'currency',
-      currency: 'GTQ'
-    }).format(price)
+    return `Q ${price.toFixed(2)}`
   }
 
   const getCategoryIcon = (category) => {
