@@ -63,28 +63,28 @@ export default function ProductCard({ product }) {
           
         {/* Overlay hover con información adicional */}
         <div className="absolute inset-0 bg-theme-header bg-opacity-90 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out flex items-center justify-center transform scale-95 group-hover:scale-100">
-          <div className="text-center text-white p-2 sm:p-4">
-            <div className="text-xl sm:text-2xl mb-1 sm:mb-2 animate-pulse">👁️</div>
-            <p className="text-xs sm:text-sm font-medium mb-1">Ver detalles completos</p>
-            <p className="text-xs opacity-80 hidden sm:block">Haz clic para más información</p>
+          <div className="text-center text-white p-1 sm:p-4">
+            <div className="text-lg sm:text-2xl mb-1 sm:mb-2 animate-pulse">👁️</div>
+            <p className="text-xs font-medium mb-1 hidden sm:block">Ver detalles completos</p>
+            <p className="text-xs opacity-80 hidden lg:block">Haz clic para más información</p>
             </div>
           </div>
         </div>
       </Link>
 
       {/* Información del producto */}
-      <div className="p-3 sm:p-4 lg:p-6">
-        <h3 className="text-lg sm:text-xl font-bold text-theme-primary mb-2 sm:mb-3 tracking-wide leading-tight group-hover:text-theme-secondary transition-all duration-300 line-clamp-2">
+      <div className="p-2 sm:p-4 lg:p-6">
+        <h3 className="text-sm sm:text-xl font-bold text-theme-primary mb-1 sm:mb-3 tracking-wide leading-tight group-hover:text-theme-secondary transition-all duration-300 line-clamp-2">
           {product.name}
         </h3>
         
-        <p className="text-theme-secondary text-sm mb-4 line-clamp-2 leading-relaxed">
+        <p className="text-theme-secondary text-xs sm:text-sm mb-2 sm:mb-4 line-clamp-2 leading-relaxed hidden sm:block">
           {product.description}
         </p>
 
         {/* Género del producto */}
         {product.gender && (
-          <div className="flex items-center mb-3">
+          <div className="items-center mb-2 sm:mb-3 hidden sm:flex">
             <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
               product.gender === 'hombre' 
                 ? 'bg-blue-100 text-blue-800' 
@@ -100,14 +100,14 @@ export default function ProductCard({ product }) {
           </div>
         )}
 
-        <div className="flex items-center justify-between mb-3 sm:mb-4">
-          <div className="flex items-center space-x-2">
-            <span className="text-lg sm:text-xl lg:text-2xl font-bold text-theme-primary">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 sm:mb-4 space-y-2 sm:space-y-0">
+          <div className="flex items-center">
+            <span className="text-sm sm:text-xl lg:text-2xl font-bold text-theme-primary">
               {formatPrice(product.price)}
             </span>
           </div>
           
-          <div className={`px-3 py-2 rounded-lg ${
+          <div className={`px-2 sm:px-3 py-1 sm:py-2 rounded text-center sm:rounded-lg ${
             totalStock > 0 
               ? 'bg-gradient-to-r from-gray-100 to-gray-200 border border-gray-300'
               : 'bg-gradient-to-r from-red-100 to-orange-100 border border-red-300'
@@ -115,22 +115,18 @@ export default function ProductCard({ product }) {
             <div className={`text-xs font-semibold tracking-wider ${
               totalStock > 0 ? 'text-gray-800' : 'text-red-800'
             }`}>
-              TALLAS: {totalStock > 0 
-                ? (availableSizes.length > 3 
-                  ? `${availableSizes.slice(0, 3).map(item => item.size).join(', ')}...` 
-                  : sizesText)
+              {totalStock > 0 
+                ? `TALLAS: ${availableSizes.length > 2 
+                  ? `${availableSizes.slice(0, 2).map(item => item.size).join(', ')}...` 
+                  : sizesText}`
                 : 'Sin stock'
               }
             </div>
-            {totalStock > 0 ? (
-              <div className="text-xs text-gray-600 mt-1">
-                Stock: {totalStock} unidades
-              </div>
-            ) : (
-              <div className="text-xs text-red-600 mt-1">
-                Temporalmente agotado
-              </div>
-            )}
+            <div className={`text-xs mt-1 hidden sm:block ${
+              totalStock > 0 ? 'text-gray-600' : 'text-red-600'
+            }`}>
+              {totalStock > 0 ? `Stock: ${totalStock} unidades` : 'Temporalmente agotado'}
+            </div>
           </div>
         </div>
         
