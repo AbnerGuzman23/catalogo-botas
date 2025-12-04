@@ -58,13 +58,7 @@ export default function CheckoutPage() {
     })
     
     message += `\n💰 *TOTAL DEL PEDIDO: ${formatPrice(total)}*\n`
-    message += `\n📋 *Número de pedido:* #${saleId}\n`
-    message += `\n💳 *Métodos de pago disponibles:*\n`
-    message += `• Efectivo\n`
-    message += `• Transferencia bancaria\n`
-    message += `• Tarjeta de crédito/débito\n`
-    message += `\n🕐 Fecha del pedido: ${new Date().toLocaleString('es-ES')}\n`
-    message += `\n¡Gracias por elegir RR BOOTS! 🤠`
+    message += `\n🕐 Fecha del pedido: ${new Date().toLocaleString('es-ES')}`
     
     return encodeURIComponent(message)
   }
@@ -149,7 +143,7 @@ export default function CheckoutPage() {
             ¡Pedido Confirmado!
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-4">
-            Tu pedido #{saleId} ha sido procesado exitosamente.
+            Tu pedido ha sido procesado exitosamente.
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-500 mb-6">
             El inventario ha sido actualizado automáticamente.
