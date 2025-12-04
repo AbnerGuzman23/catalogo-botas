@@ -335,12 +335,12 @@ function HomeContent() {
                   </div>
 
                   {/* Grid de productos */}
-                  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 overflow-x-auto">
+                  <div className="flex gap-2 sm:gap-6 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4">
                     {brandProducts.map(product => (
                       <Link
                         key={product.id}
                         href={`/product/${product.id}`}
-                        className="group bg-white rounded-lg sm:rounded-xl shadow-sm border border-black overflow-hidden hover:shadow-lg transition-all duration-300"
+                        className="group bg-white rounded-lg sm:rounded-xl shadow-sm border border-black overflow-hidden hover:shadow-lg transition-all duration-300 flex-shrink-0 w-40 sm:w-auto"
                       >
                         {/* Imagen */}
                         <div className="aspect-square bg-white relative overflow-hidden border-b border-black">
