@@ -198,11 +198,13 @@ function HomeContent() {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white px-4">
             {siteConfig.logoUrl ? (
-              <img 
-                src={siteConfig.logoUrl} 
-                alt={siteConfig.siteName}
-                className="h-16 w-16 mx-auto mb-6 object-contain"
-              />
+              <div className="flex justify-center mb-8">
+                <img 
+                  src={siteConfig.logoUrl} 
+                  alt={siteConfig.siteName}
+                  className="h-32 w-32 md:h-40 md:w-40 lg:h-48 lg:w-48 object-contain"
+                />
+              </div>
             ) : (
               <div className="text-6xl mb-6">🤠</div>
             )}
