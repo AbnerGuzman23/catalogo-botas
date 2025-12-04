@@ -389,7 +389,7 @@ function HomeContent() {
                           
                           <div className="flex items-center justify-between mt-2 sm:mt-3">
                             <span className="text-sm sm:text-lg font-semibold text-black">
-                              ${product.price}
+                              Q {product.price}
                             </span>
                             <span className="text-xs text-black font-medium group-hover:underline">
                               Ver detalles
