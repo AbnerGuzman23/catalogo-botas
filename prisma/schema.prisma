@@ -103,6 +103,7 @@ model SiteConfig {
   siteName    String   @default("RR BOOTS")
   siteDescription String @default("Artículos Western de Calidad Premium")
   logoUrl     String?
+  heroBackgroundUrl String? // Nueva imagen de fondo para hero section
   footerAbout String   @default("Más de 25 años especializados en artículos western de alta calidad. Botas, cinturones, ropa y accesorios vaqueros con tradición y estilo auténtico.")
   footerProducts String @default("• Zapatos Vaqueros\n• Cinturones de Cuero\n• Ropa Western\n• Accesorios Vaqueros")
   footerServices String @default("🤠 Artículos western auténticos\n📞 Asesoría especializada\n🚚 Envíos seguros\n✨ Garantía de calidad")

@@ -192,7 +192,9 @@ function HomeContent() {
       <section 
         className="relative h-screen bg-black bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1544966503-7cc5ac882d2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80')`
+          backgroundImage: siteConfig.heroBackgroundUrl 
+            ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${siteConfig.heroBackgroundUrl}')`
+            : `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1544966503-7cc5ac882d2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80')`
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center">

@@ -7,6 +7,7 @@ export default function SettingsForm({ siteConfig }) {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [imagePreview, setImagePreview] = useState(siteConfig.logoUrl || null)
+  const [heroPreview, setHeroPreview] = useState(siteConfig.heroBackgroundUrl || null)
   const [formData, setFormData] = useState({
     siteName: siteConfig.siteName || '',
     siteDescription: siteConfig.siteDescription || '',
@@ -19,7 +20,8 @@ export default function SettingsForm({ siteConfig }) {
     instagramUrl: siteConfig.instagramUrl || '',
     tiktokUrl: siteConfig.tiktokUrl || '',
     facebookUrl: siteConfig.facebookUrl || '',
-    logoFile: null
+    logoFile: null,
+    heroBackgroundFile: null
   })
 
   const handleSubmit = async (e) => {
@@ -42,13 +44,35 @@ export default function SettingsForm({ siteConfig }) {
       formDataObj.append('facebookUrl', formData.facebookUrl)
       
       // Si hay una imagen nueva, subirla primero
-      if (formData.logoFile) {
-        // Aquí podrías implementar la subida a un servicio como Cloudinary
-        // Por ahora, convertiremos la imagen a base64 para almacenarla
-        const reader = new FileReader()
-        reader.onload = async (event) => {
-          const logoUrl = event.target.result
+      if (formData.logoFile || formData.heroBackgroundFile) {
+        const processFiles = async () => {
+          let logoUrl = siteConfig.logoUrl || ''
+          let heroBackgroundUrl = siteConfig.heroBackgroundUrl || ''
+          
+          if (formData.logoFile) {
+            const reader = new FileReader()
+            await new Promise((resolve) => {
+              reader.onload = (event) => {
+                logoUrl = event.target.result
+                resolve()
+              }
+              reader.readAsDataURL(formData.logoFile)
+            })
+          }
+          
+          if (formData.heroBackgroundFile) {
+            const reader = new FileReader()
+            await new Promise((resolve) => {
+              reader.onload = (event) => {
+                heroBackgroundUrl = event.target.result
+                resolve()
+              }
+              reader.readAsDataURL(formData.heroBackgroundFile)
+            })
+          }
+          
           formDataObj.append('logoUrl', logoUrl)
+          formDataObj.append('heroBackgroundUrl', heroBackgroundUrl)
           
           await updateSiteConfig(formDataObj)
           setSuccess(true)
@@ -58,10 +82,12 @@ export default function SettingsForm({ siteConfig }) {
             window.location.reload()
           }, 2000)
         }
-        reader.readAsDataURL(formData.logoFile)
+        
+        await processFiles()
       } else {
-        // Mantener la URL actual si no hay nueva imagen
+        // Mantener las URLs actuales si no hay nuevas imágenes
         formDataObj.append('logoUrl', siteConfig.logoUrl || '')
+        formDataObj.append('heroBackgroundUrl', siteConfig.heroBackgroundUrl || '')
         
         await updateSiteConfig(formDataObj)
         setSuccess(true)
@@ -87,6 +113,8 @@ export default function SettingsForm({ siteConfig }) {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]
+    const isHero = e.target.name === 'heroBackgroundFile'
+    
     if (file) {
       // Validar que sea una imagen
       if (!file.type.startsWith('image/')) {
@@ -102,13 +130,17 @@ export default function SettingsForm({ siteConfig }) {
       
       setFormData({
         ...formData,
-        logoFile: file
+        [isHero ? 'heroBackgroundFile' : 'logoFile']: file
       })
       
       // Crear preview
       const reader = new FileReader()
       reader.onload = (event) => {
-        setImagePreview(event.target.result)
+        if (isHero) {
+          setHeroPreview(event.target.result)
+        } else {
+          setImagePreview(event.target.result)
+        }
       }
       reader.readAsDataURL(file)
     }
@@ -207,6 +239,46 @@ export default function SettingsForm({ siteConfig }) {
                 src={imagePreview}
                 alt="Vista previa del logo"
                 className="h-16 w-auto object-contain"
+              />
+            </div>
+          </div>
+        )}
+
+        <div>
+          <label htmlFor="heroBackgroundFile" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Imagen de Fondo de la Página Principal
+          </label>
+          <div className="mt-1">
+            <input
+              type="file"
+              name="heroBackgroundFile"
+              id="heroBackgroundFile"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="block w-full text-sm text-gray-500 dark:text-gray-400
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-md file:border-0
+                file:text-sm file:font-semibold
+                file:bg-gray-50 file:text-gray-700
+                hover:file:bg-gray-100
+                dark:file:bg-gray-700 dark:file:text-gray-300"
+            />
+          </div>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            Imagen de fondo para la sección principal. Recomendado: 1920x1080px. Formatos admitidos: JPG, PNG. Máximo 5MB.
+          </p>
+        </div>
+
+        {heroPreview && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Vista previa de la imagen de fondo
+            </label>
+            <div className="border border-gray-300 dark:border-gray-600 rounded-md p-4 bg-gray-50 dark:bg-gray-700">
+              <img
+                src={heroPreview}
+                alt="Vista previa del fondo"
+                className="h-32 w-full object-cover rounded"
               />
             </div>
           </div>
