@@ -11,22 +11,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 
-function SizeFilterWrapper({ sizes, currentSize }) {
-  return (
-    <Suspense fallback={<div className="bg-gray-50 border border-gray-200 p-6 rounded-lg h-24 animate-pulse"></div>}>
-      <SizeFilter sizes={sizes} currentSize={currentSize} />
-    </Suspense>
-  )
-}
-
-// Función para generar metadata dinámica
-export async function generateMetadata() {
-  return {
-    title: 'RR BOOTS',
-    description: 'Catálogo de artículos western'
-  }
-}
-
 export default function Home() {
   const searchParams = useSearchParams()
   const [products, setProducts] = useState([])
@@ -87,6 +71,14 @@ export default function Home() {
 
     loadData()
   }, [sizeFilter, cleanCategoryFilter, genderFilter, brandFilter])
+
+  function SizeFilterWrapper({ sizes, currentSize }) {
+    return (
+      <Suspense fallback={<div className="bg-white border border-black p-6 h-12 animate-pulse"></div>}>
+        <SizeFilter sizes={sizes} currentSize={currentSize} />
+      </Suspense>
+    )
+  }
 
   if (loading) {
     return (

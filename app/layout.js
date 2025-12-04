@@ -16,8 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'RR BOOTS',
-  description: 'Catálogo de artículos western de alta calidad',
+  title: 'RR BOOTS - Artículos Western de Calidad Premium',
+  description: 'Descubre nuestra colección de botas western, botines y artículos cowboy de la más alta calidad. Encuentra tu estilo perfecto en RR BOOTS.',
+  keywords: 'botas western, botines, cowboy, vaquero, calzado western, botas de trabajo',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
