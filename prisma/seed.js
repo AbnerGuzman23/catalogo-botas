@@ -198,6 +198,140 @@ async function main() {
       categoryId: vaqueras.id,
       brandId: cowboyHeritage.id,
       imageUrl: 'https://picsum.photos/400/400?random=9'
+    },
+    // Nuevos productos para Western Classic
+    {
+      name: 'Botas de Cuero Marrón Clásicas',
+      description: 'Botas de cuero marrón tradicionales con diseño clásico western. Perfectas para uso diario.',
+      price: 199.99,
+      gender: 'hombre',
+      category: 'botas-vaqueras',
+      categoryId: vaqueras.id,
+      brandId: westernClassic.id,
+      imageUrl: 'https://picsum.photos/400/400?random=10'
+    },
+    {
+      name: 'Botines de Mujer Elegantes',
+      description: 'Botines de tacón medio con acabado premium. Ideales para ocasiones especiales.',
+      price: 129.99,
+      gender: 'mujer',
+      category: 'botines',
+      categoryId: botines.id,
+      brandId: westernClassic.id,
+      imageUrl: 'https://picsum.photos/400/400?random=11'
+    },
+    {
+      name: 'Botas de Trabajo Industriales',
+      description: 'Botas de trabajo reforzadas con protección química y antideslizante para industria pesada.',
+      price: 119.99,
+      gender: 'unisex',
+      category: 'botas-trabajo',
+      categoryId: trabajo.id,
+      brandId: westernClassic.id,
+      imageUrl: 'https://picsum.photos/400/400?random=12'
+    },
+    // Nuevos productos para RR Originals
+    {
+      name: 'Botas Vaqueras Premium',
+      description: 'Línea premium de botas vaqueras con detalles artesanales y cuero de primera calidad.',
+      price: 299.99,
+      gender: 'hombre',
+      category: 'botas-vaqueras',
+      categoryId: vaqueras.id,
+      brandId: rrOriginals.id,
+      imageUrl: 'https://picsum.photos/400/400?random=13'
+    },
+    {
+      name: 'Botines de Diseño Moderno',
+      description: 'Botines con diseño contemporáneo y materiales innovadores. Comodidad y estilo únicos.',
+      price: 159.99,
+      gender: 'mujer',
+      category: 'botines',
+      categoryId: botines.id,
+      brandId: rrOriginals.id,
+      imageUrl: 'https://picsum.photos/400/400?random=14'
+    },
+    {
+      name: 'Botas de Montaña Extremas',
+      description: 'Botas técnicas para montañismo extremo. Resistentes a temperaturas bajo cero.',
+      price: 259.99,
+      gender: 'unisex',
+      category: 'botas-montana',
+      categoryId: montana.id,
+      brandId: rrOriginals.id,
+      imageUrl: 'https://picsum.photos/400/400?random=15'
+    },
+    // Nuevos productos para Cowboy Heritage
+    {
+      name: 'Botas Cowboy Tradicionales',
+      description: 'Botas cowboy con diseño tradicional texano. Auténtico estilo del viejo oeste.',
+      price: 219.99,
+      gender: 'hombre',
+      category: 'botas-vaqueras',
+      categoryId: vaqueras.id,
+      brandId: cowboyHeritage.id,
+      imageUrl: 'https://picsum.photos/400/400?random=16'
+    },
+    {
+      name: 'Botines Western para Mujer',
+      description: 'Botines estilo western especialmente diseñados para mujer con detalles únicos.',
+      price: 169.99,
+      gender: 'mujer',
+      category: 'botines',
+      categoryId: botines.id,
+      brandId: cowboyHeritage.id,
+      imageUrl: 'https://picsum.photos/400/400?random=17'
+    },
+    {
+      name: 'Botas de Trabajo Ranchero',
+      description: 'Botas robustas para trabajo de rancho y ganadería. Resistentes y cómodas.',
+      price: 139.99,
+      gender: 'unisex',
+      category: 'botas-trabajo',
+      categoryId: trabajo.id,
+      brandId: cowboyHeritage.id,
+      imageUrl: 'https://picsum.photos/400/400?random=18'
+    },
+    {
+      name: 'Botas de Senderismo Heritage',
+      description: 'Botas de montaña con estilo heritage. Combina tradición con tecnología moderna.',
+      price: 189.99,
+      gender: 'unisex',
+      category: 'botas-montana',
+      categoryId: montana.id,
+      brandId: cowboyHeritage.id,
+      imageUrl: 'https://picsum.photos/400/400?random=19'
+    },
+    // Productos adicionales variados
+    {
+      name: 'Botas Vaqueras Texanas',
+      description: 'Botas vaqueras auténticas de Texas con punta cuadrada y tacón bajo.',
+      price: 179.99,
+      gender: 'hombre',
+      category: 'botas-vaqueras',
+      categoryId: vaqueras.id,
+      brandId: westernClassic.id,
+      imageUrl: 'https://picsum.photos/400/400?random=20'
+    },
+    {
+      name: 'Botines Casual Mujer',
+      description: 'Botines casuales perfectos para el día a día. Combina comodidad y estilo.',
+      price: 89.99,
+      gender: 'mujer',
+      category: 'botines',
+      categoryId: botines.id,
+      brandId: rrOriginals.id,
+      imageUrl: 'https://picsum.photos/400/400?random=21'
+    },
+    {
+      name: 'Botas de Trabajo Electricista',
+      description: 'Botas especializadas para electricistas con protección dieléctrica y suela aislante.',
+      price: 149.99,
+      gender: 'unisex',
+      category: 'botas-trabajo',
+      categoryId: trabajo.id,
+      brandId: westernClassic.id,
+      imageUrl: 'https://picsum.photos/400/400?random=22'
     }
   ]
 
