@@ -110,7 +110,7 @@ function HomeContent() {
             {/* Social Media Links and Filter Button */}
             <div className="flex items-center space-x-4">
               <a
-                href="https://wa.me/5218261234567"
+                href={siteConfig.whatsappUrl || "https://wa.me/5218261234567"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:bg-white hover:text-black p-2 transition-colors"
@@ -122,7 +122,7 @@ function HomeContent() {
               </a>
 
               <a
-                href="https://instagram.com/rrboots"
+                href={siteConfig.instagramUrl || "https://instagram.com/rrboots"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:bg-white hover:text-black p-2 transition-colors"
@@ -134,7 +134,7 @@ function HomeContent() {
               </a>
 
               <a
-                href="https://tiktok.com/@rrboots"
+                href={siteConfig.tiktokUrl || "https://tiktok.com/@rrboots"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:bg-white hover:text-black p-2 transition-colors"
@@ -146,7 +146,7 @@ function HomeContent() {
               </a>
 
               <a
-                href="https://facebook.com/rrboots"
+                href={siteConfig.facebookUrl || "https://facebook.com/rrboots"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:bg-white hover:text-black p-2 transition-colors"

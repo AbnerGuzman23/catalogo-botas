@@ -108,6 +108,11 @@ model SiteConfig {
   footerServices String @default("🤠 Artículos western auténticos\n📞 Asesoría especializada\n🚚 Envíos seguros\n✨ Garantía de calidad")
   adminPassword String @default("admin123")
   whatsappNumber String @default("50212345678")
+  // Enlaces de redes sociales
+  whatsappUrl String @default("https://wa.me/50212345678")
+  instagramUrl String @default("https://instagram.com/rrboots")
+  tiktokUrl String @default("https://tiktok.com/@rrboots")
+  facebookUrl String @default("https://facebook.com/rrboots")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

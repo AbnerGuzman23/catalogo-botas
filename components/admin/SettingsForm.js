@@ -15,6 +15,10 @@ export default function SettingsForm({ siteConfig }) {
     footerServices: siteConfig.footerServices || '',
     adminPassword: '',
     whatsappNumber: siteConfig.whatsappNumber || '',
+    whatsappUrl: siteConfig.whatsappUrl || '',
+    instagramUrl: siteConfig.instagramUrl || '',
+    tiktokUrl: siteConfig.tiktokUrl || '',
+    facebookUrl: siteConfig.facebookUrl || '',
     logoFile: null
   })
 
@@ -32,6 +36,10 @@ export default function SettingsForm({ siteConfig }) {
       formDataObj.append('footerServices', formData.footerServices)
       formDataObj.append('adminPassword', formData.adminPassword || siteConfig.adminPassword || 'admin123')
       formDataObj.append('whatsappNumber', formData.whatsappNumber)
+      formDataObj.append('whatsappUrl', formData.whatsappUrl)
+      formDataObj.append('instagramUrl', formData.instagramUrl)
+      formDataObj.append('tiktokUrl', formData.tiktokUrl)
+      formDataObj.append('facebookUrl', formData.facebookUrl)
       
       // Si hay una imagen nueva, subirla primero
       if (formData.logoFile) {
@@ -312,6 +320,89 @@ export default function SettingsForm({ siteConfig }) {
               />
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                 Número con código de país (sin +). Ejemplo: 50212345678 para Guatemala
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-200 dark:border-gray-600 pt-6 mt-6">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+            Enlaces de Redes Sociales
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+            Configura los enlaces que aparecerán en la barra de navegación
+          </p>
+          
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="whatsappUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                URL de WhatsApp
+              </label>
+              <input
+                type="url"
+                name="whatsappUrl"
+                id="whatsappUrl"
+                value={formData.whatsappUrl}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="https://wa.me/50212345678"
+              />
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                Enlace directo a WhatsApp. Ejemplo: https://wa.me/50212345678
+              </p>
+            </div>
+
+            <div>
+              <label htmlFor="instagramUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                URL de Instagram
+              </label>
+              <input
+                type="url"
+                name="instagramUrl"
+                id="instagramUrl"
+                value={formData.instagramUrl}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="https://instagram.com/rrboots"
+              />
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                Enlace a tu página de Instagram
+              </p>
+            </div>
+
+            <div>
+              <label htmlFor="tiktokUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                URL de TikTok
+              </label>
+              <input
+                type="url"
+                name="tiktokUrl"
+                id="tiktokUrl"
+                value={formData.tiktokUrl}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="https://tiktok.com/@rrboots"
+              />
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                Enlace a tu página de TikTok
+              </p>
+            </div>
+
+            <div>
+              <label htmlFor="facebookUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                URL de Facebook
+              </label>
+              <input
+                type="url"
+                name="facebookUrl"
+                id="facebookUrl"
+                value={formData.facebookUrl}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="https://facebook.com/rrboots"
+              />
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                Enlace a tu página de Facebook
               </p>
             </div>
           </div>
